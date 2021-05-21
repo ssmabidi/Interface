@@ -1,11 +1,16 @@
 #!/usr/bin/python
 
 import sys
+import time
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
 
 
 from interface import Interface
 
 def main(argc, argv):
+    """Testing import cv2interface functions"""
     print("In main")
     print('Number of arguments:', argc, 'arguments.')
     vocabularyPath = argv[1]
@@ -16,8 +21,9 @@ def main(argc, argv):
 
 
     interface = Interface({"dataPath" : dataSetPath, "dataSet": "Zurich"})
-    # print(interface.get_cameraParams())
+    cameraParams = interface.get_cameraParams()
 
+    # print(cameraParams)
     # print(interface.getImageNames())
 
     # nextImageName = ""
@@ -25,7 +31,33 @@ def main(argc, argv):
     #     nextImageName = interface.getNextImageName()
     #     print(nextImageName)
 
-    print(interface.getImageAtIndex(0))
+
+    # interface.getImageAtIndex(0).show()
+
+
+    size = (cameraParams['width'],cameraParams['height'])
+    # out = cv2.VideoWriter('project.avi',cv2.VideoWriter_fourcc(*'DIVX'), 15, size)
+    image = ""
+    # while image is not None:
+    image = interface.getNextImage()
+        # imageNp = np.array(image)
+        # cv2.imshow('Image', imageNp)
+        # plt.imshow(image)
+        # image.show()
+        # time.sleep(0.5)
+        # image.close()
+        # cv2.destroyAllWindows()
+        
+        # out.write(np.uint8(imageNp))
+    # out.release()
+        # image.show()
+        # time.sleep(0.5)
+        # # image.close()
+        # # hide image
+        # for proc in psutil.process_iter():
+        #     if proc.name() == "display":
+        #         proc.kill()
+
 
     # for i in range(1,argc):
     #     print(argv[i])
