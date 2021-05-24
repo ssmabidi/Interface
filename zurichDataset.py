@@ -92,17 +92,6 @@ class ZurichDataset(DataSetInterface):
     def getViewerParams(self) -> dict:
         return self.Viewer
 
-
-    def getImageNames(self) -> list:
-        return self.imageNames
-
-    def getNextImageName(self) -> str:
-        retFileName = None
-        if(self.imageNameIndex < len(self.imageNames)):
-            retFileName = self.imageNames[self.imageNameIndex]
-            self.imageNameIndex += 1
-        return retFileName
-
     def getImageAtIndex(self, i: int) -> Image:
         """Returns Image at index i. If i is greater than total number of images returns None."""
         # print(self.dataPath + self.paths['imageFilesPath'] + "/" + self.imageNames[i])
@@ -118,9 +107,3 @@ class ZurichDataset(DataSetInterface):
             retImg = Image.open(self.dataPath + self.paths['imageFilesPath'] + "/" + self.imageNames[self.imageIndex])
             self.imageIndex += 1
         return retImg
-
-    def setImageIndex(self, i: int = 0):
-        '''Sets image index to i. Default value is 0.'''
-        self.imageIndex = i
-
-        
