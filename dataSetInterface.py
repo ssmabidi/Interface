@@ -8,14 +8,6 @@ class DataSetInterface(ABC):
     Algorithm interface in order to feed the data to the algorithms. The functions defined in this interface will be 
     implemented by the dataset specific classes'''
 
-    paths = {
-        'zurich': {
-            'calibrationDataPath': '/calibration_data.npz',
-            'logFilesPath': '/Log Files',
-            'imageFilesPath': '/MAV Images'
-        }
-    }
-
     def __init__(self, args: list):
         '''The constructor of Dataset Interface. Each class that implements this interface must provide a constructor that 
         will set default values. Some default values are already set in this constructor that could be overriden.'''
@@ -54,11 +46,11 @@ class DataSetInterface(ABC):
                 0, 0, 1, 0.03227,
                 0.0, 0.0, 0.0, 1.0]
         # List to store image names
-        self.imageNames = []
+        self.imageNames = None
+        # Indexes to traverse data
         self.imageNameIndex = 0
         self.imageIndex = 0        
-        
-    
+
     @abstractmethod
     def get_cameraParams(self) -> dict:
         '''Returns a dictionary with camera paremeter values.
@@ -89,17 +81,28 @@ class DataSetInterface(ABC):
 
     def getNextImageName(self) -> str:
         '''Returns the name of next image in order. If last image name was already provided in previous call it will return None.'''
-        pass
-
+        if(self.imageNames == None):
+            raise TypeError("Object parameter 'self.imageNames' is not initialized")
+        retFileName = None
+        if(self.imageNameIndex < len(self.imageNames)):
+            retFileName = self.imageNames[self.imageNameIndex]
+            self.imageNameIndex += 1
+        return retFileName
+    
+    @abstractmethod
     def getImageAtIndex(self, i: int) -> Image:
-        """Returns the image at index i. If i is greater than total number of images returns None."""
+        '''Returns the image at index i. If i is greater than total number of images returns None.'''
         pass
 
+    @abstractmethod
     def getNextImage(self) -> Image:
         '''Returns the next image in order. If last image was already provided in previous call it will return None.'''
         pass
 
     def setImageIndex(self, i: int = 0):
         '''Sets image index to i. Default value is 0. So, if no parameter is provided it resets the image counter.'''
-        self.imageIndex = i
+        if(i > len(self.imageNames) or i < 0):
+            raise TypeError("Invalid Index!!")
+        else:
+            self.imageIndex = i
 
