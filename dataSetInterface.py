@@ -1,38 +1,42 @@
 import numpy as np
 import os
 from PIL import Image
+from abc import ABC, abstractmethod
 
-class DataSetInterface:
+class DataSetInterface(ABC):
     '''A generic interface for Datasets. This interface defines the methods which will be called by the
     Algorithm interface in order to feed the data to the algorithms. The functions defined in this interface will be 
     implemented by the dataset specific classes'''
 
-    # Default values for dataSets taken from related papers
-    # Values for Zurich dataSet. Paper link: http://rpg.ifi.uzh.ch/docs/IJRR17_Majdik.pdf
-    camera = {
+    paths = {
         'zurich': {
+            'calibrationDataPath': '/calibration_data.npz',
+            'logFilesPath': '/Log Files',
+            'imageFilesPath': '/MAV Images'
+        }
+    }
+
+    def __init__(self, args: list):
+        '''The constructor of Dataset Interface. Each class that implements this interface must provide a constructor that 
+        will set default values. Some default values are already set in this constructor that could be overriden.'''
+        # Default Camera Parameters
+        self.camera = {
             'type': "PinHole",
             'width': 1920,
             'height': 1080,
             'fps': 30,
             'RGB': 1
         }
-    }
-
-    # TODO: Currently these values are copied from EuRoC dataset. Need to update for zurich
-    orb = {
-        'zurich': {
-            'nFeatures': 1000,
-            'scaleFactor': 1.2,
-            'nLevels': 8,
-            'iniThFAST': 20,
-            'minThFAST': 7
+        # Default ORB parameters
+        self.orb = {
+        'nFeatures': 1000,
+        'scaleFactor': 1.2,
+        'nLevels': 8,
+        'iniThFAST': 20,
+        'minThFAST': 7
         }
-    }
-
-    # TODO: Currently these values are copied from EuRoC dataset. Need to update for zurich
-    viewer = {
-        'zurich': {
+        # Default Viewer parameters
+        self.viewer = {
             'KeyFrameSize': 0.05,
             'KeyFrameLineWidth': 1,
             'GraphLineWidth': 0.9,
@@ -44,53 +48,40 @@ class DataSetInterface:
             'ViewpointZ': -1.8,
             'ViewpointF': 500
         }
-    }
-
-    # Transformation from camera to body-frame (imu)
-    transformationMatrix = {
-        'zurich': [1, 0, 0, -0.07566,
-               0, 1, 0, -0.02968,
-              0, 0, 1, 0.03227,
-               0.0, 0.0, 0.0, 1.0]
-    }
-    paths = {
-        'zurich': {
-            'calibrationDataPath': '/calibration_data.npz',
-            'logFilesPath': '/Log Files',
-            'imageFilesPath': '/MAV Images'
-        }
-    }
-
-    def __init__(self, args: list):
-        print("Interface")
-        self.dataPath = args["dataPath"]
-        self.dataSet = args["dataSet"].lower()
-        self.imageNames = sorted(os.listdir(self.dataPath + self.paths[self.dataSet]['imageFilesPath']))
+        # Transformation from camera to body-frame (imu), Default is the transformation matrix of Zurich dataset
+        self.transformationMatrix = [1, 0, 0, -0.07566,
+                0, 1, 0, -0.02968,
+                0, 0, 1, 0.03227,
+                0.0, 0.0, 0.0, 1.0]
+        # List to store image names
+        self.imageNames = []
         self.imageNameIndex = 0
-        self.imageIndex = 0
-        # unzipped_file = zipfile.ZipFile("sample.zip", "r")
+        self.imageIndex = 0        
+        
     
+    @abstractmethod
     def get_cameraParams(self) -> dict:
         '''Returns a dictionary with camera paremeter values.
         These values include [camera type "type", width of camera image "width", height of camera image "height",
         frames per second "fps", RGB or BGR "RGB", fx, fy, s, cx, cy, k1, k2, k3, p1, p2].
         Further values can be returned as required or provided by different datasets or algorithms.'''
-        pass
+        return self.camera
 
+    @abstractmethod
     def getOrbParams(self) -> dict:
         '''Returns a dictionary with Oriented FAST and rotated BRIEF (ORB) paremeter values.
         These values include [number of features, scale factor between levels in the scale pyramid "scaleFactor", 
         Number of levels in the scale pyramid "nLevels", Fast threshold "iniThFAST" and "minThFAST"].
         Further values can be returned as required or provided by different datasets or algorithms.'''
-        pass
+        return self.orb
 
+    @abstractmethod
     def getViewerParams(self) -> dict:
         '''Returns a dictionary with Viewer paremeter values.
         These values include [KeyFrameSize,  KeyFrameLineWidth, GraphLineWidth, PointSize, CameraSize,
         CameraLineWidth, ViewpointX, ViewpointY, ViewpointZ, ViewpointF].
         Further values can be returned as required or provided by different datasets or algorithms.'''
-        pass
-
+        return self.viewer
 
     def getImageNames(self) -> list:
         '''Returns a list of names of the images sorted by names'''
@@ -112,4 +103,3 @@ class DataSetInterface:
         '''Sets image index to i. Default value is 0. So, if no parameter is provided it resets the image counter.'''
         self.imageIndex = i
 
-        
