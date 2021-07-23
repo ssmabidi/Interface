@@ -2,29 +2,36 @@
 
 import sys
 import time
-import cv2
+# import cv2
 import numpy as np
 from matplotlib import pyplot as plt
 
+from PIL import Image
 
-from interface import Interface
+from yoloAlgorithm import yoloAlgorithm
+
+from zurichDataset import ZurichDataset
+
 
 def main(argc, argv):
-    """Testing import cv2interface functions"""
+    """Testing interface functions"""
     print("In main")
     print('Number of arguments:', argc, 'arguments.')
+
+    yoloInstance = yoloAlgorithm([])
+    yoloInstance.load_network()
+    yoloInstance.detect_image()
+
     vocabularyPath = argv[1]
     dataSetPath = argv[2]
-    # print(dataSetPath)
 
 
 
-
-    interface = Interface({"dataPath" : dataSetPath, "dataSet": "Zurich"})
+    interface = ZurichDataset({"dataPath" : dataSetPath})
     cameraParams = interface.get_cameraParams()
 
-    # print(cameraParams)
-    # print(interface.getImageNames())
+    print(cameraParams)
+    print(interface.getImageNames())
 
     # nextImageName = ""
     # while nextImageName is not None:
@@ -32,7 +39,7 @@ def main(argc, argv):
     #     print(nextImageName)
 
 
-    # interface.getImageAtIndex(0).show()
+    interface.getImageAtIndex(0).show()
 
 
     size = (cameraParams['width'],cameraParams['height'])
@@ -66,8 +73,6 @@ def main(argc, argv):
 if __name__ == '__main__':
 
     main(len(sys.argv), sys.argv)
-
-
 
     # ./Examples/Monocular/mono_euroc
     # ARGS:
