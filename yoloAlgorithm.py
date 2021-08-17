@@ -28,10 +28,23 @@ class yoloAlgorithm(AlgorithmInterface):
         self.class_names = networkInfo[1]
         self.colors = networkInfo[2]
 
-    def detect_image(self):
-        img = cv2.imread('yoloFiles/person.jpg')
+    def detect_image(self, file_name):
+        img = cv2.imread(file_name)
 
         img = img.transpose(2,0,1)
+        c = img.shape[0]
+        h = img.shape[1]
+        w = img.shape[2]
+        img = (img/255.0).flatten()
+        data = c_array(darknet.c_float, img)
+        im = darknet.IMAGE(w,h,c,data)
+
+        # img_ins = darknet.IMAGE
+        detections = darknet.detect_image(self.network, self.class_names, im)
+        print(detections)
+
+    def detect_image_file(self, cv2Image):
+        img = cv2Image.transpose(2,0,1)
         c = img.shape[0]
         h = img.shape[1]
         w = img.shape[2]

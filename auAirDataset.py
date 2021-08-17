@@ -3,7 +3,7 @@ import numpy as np
 import os
 from PIL import Image
 
-class ZurichDataset(DataSetInterface):
+class auAirDataset(DataSetInterface):
 
     # TODO: Currently these values are copied from EuRoC dataset. Need to update for zurich
     # orb = {
@@ -59,8 +59,9 @@ class ZurichDataset(DataSetInterface):
         self.imageIndex = 0
         # unzipped_file = zipfile.ZipFile("sample.zip", "r")
     
-    # For reading the Intrinsic Matrix lecture from Kyle Simek is used which is available at http://ksimek.github.io/2013/08/13/intrinsic/
-    # def get_cameraParams(self) -> dict:
+    # Don't know camera parameters. TODO: need to search
+    def get_cameraParams(self) -> dict:
+        pass
     #     calibrationdata = np.load(self.dataPath + self.paths['calibrationDataPath'])
     #     mtx = calibrationdata['intrinsic_matrix']
     #     dist = calibrationdata['distCoeff'][0]
@@ -90,18 +91,18 @@ class ZurichDataset(DataSetInterface):
     def getViewerParams(self) -> dict:
         return self.Viewer
 
-    def getImageAtIndex(self, i: int) -> Image:
-        """Returns Image at index i. If i is greater than total number of images returns None."""
-        # print(self.dataPath + self.paths['imageFilesPath'] + "/" + self.imageNames[i])
-        if(i >= 0 and i < len(self.imageNames)):
-            img = Image.open(self.dataPath + self.paths['imageFilesPath'] + "/" + self.imageNames[i])
-            return img
-        else:
-            return None
+    # def getImageAtIndex(self, i: int) -> Image:
+    #     """Returns Image at index i. If i is greater than total number of images returns None."""
+    #     # print(self.dataPath + self.paths['imageFilesPath'] + "/" + self.imageNames[i])
+    #     if(i >= 0 and i < len(self.imageNames)):
+    #         img = Image.open(self.dataPath + self.paths['imageFilesPath'] + "/" + self.imageNames[i])
+    #         return img
+    #     else:
+    #         return None
 
-    def getNextImage(self) -> Image:
-        retImg = None
-        if(self.imageIndex < len(self.imageNames)):
-            retImg = Image.open(self.dataPath + self.paths['imageFilesPath'] + "/" + self.imageNames[self.imageIndex])
-            self.imageIndex += 1
-        return retImg
+    # def getNextImage(self) -> Image:
+    #     retImg = None
+    #     if(self.imageIndex < len(self.imageNames)):
+    #         retImg = Image.open(self.dataPath + self.paths['imageFilesPath'] + "/" + self.imageNames[self.imageIndex])
+    #         self.imageIndex += 1
+    #     return retImg

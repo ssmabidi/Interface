@@ -12,6 +12,7 @@ from yoloAlgorithm import yoloAlgorithm
 
 from zurichDataset import ZurichDataset
 
+from auAirDataset import auAirDataset
 
 def main(argc, argv):
     """Testing interface functions"""
@@ -20,33 +21,36 @@ def main(argc, argv):
 
     yoloInstance = yoloAlgorithm([])
     yoloInstance.load_network()
-    yoloInstance.detect_image()
+    # yoloInstance.detect_image('yoloFiles/person.jpg')
 
+    #For Zurich dataset python3 main.py ./Vocabulary/ORBvoc.txt ~/Datasets/AGZ
     vocabularyPath = argv[1]
     dataSetPath = argv[2]
 
 
 
-    interface = ZurichDataset({"dataPath" : dataSetPath})
+    interface = auAirDataset({"dataPath" : dataSetPath})
+
+    # interface = ZurichDataset({"dataPath" : dataSetPath})
     cameraParams = interface.get_cameraParams()
 
-    print(cameraParams)
+    # print(cameraParams)
     print(interface.getImageNames())
 
-    # nextImageName = ""
     # while nextImageName is not None:
     #     nextImageName = interface.getNextImageName()
     #     print(nextImageName)
 
+    yoloInstance.detect_image_file(interface.getImageAtIndex(0, cv2=True))
+    # interface.getImageAtIndex(0).show()
 
-    interface.getImageAtIndex(0).show()
 
-
-    size = (cameraParams['width'],cameraParams['height'])
+    # size = (cameraParams['width'],cameraParams['height'])
     # out = cv2.VideoWriter('project.avi',cv2.VideoWriter_fourcc(*'DIVX'), 15, size)
-    image = ""
+    # image = ""
     # while image is not None:
-    image = interface.getNextImage()
+    #     image = interface.getNextImage()
+    #     image.show()
         # imageNp = np.array(image)
         # cv2.imshow('Image', imageNp)
         # plt.imshow(image)

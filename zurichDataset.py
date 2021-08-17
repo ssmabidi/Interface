@@ -92,18 +92,18 @@ class ZurichDataset(DataSetInterface):
     def getViewerParams(self) -> dict:
         return self.Viewer
 
-    def getImageAtIndex(self, i: int) -> Image:
-        """Returns Image at index i. If i is greater than total number of images returns None."""
-        # print(self.dataPath + self.paths['imageFilesPath'] + "/" + self.imageNames[i])
-        if(i >= 0 and i < len(self.imageNames)):
-            img = Image.open(self.dataPath + self.paths['imageFilesPath'] + "/" + self.imageNames[i])
-            return img
-        else:
-            return None
+    # def getImageAtIndex(self, i: int) -> Image:
+    #     """Returns Image at index i. If i is greater than total number of images returns None."""
+    #     # print(self.dataPath + self.paths['imageFilesPath'] + "/" + self.imageNames[i])
+    #     if(i >= 0 and i < len(self.imageNames)):
+    #         img = Image.open(self.dataPath + self.paths['imageFilesPath'] + "/" + self.imageNames[i])
+    #         return img
+    #     else:
+    #         return None
 
-    def getNextImage(self) -> Image:
-        retImg = None
-        if(self.imageIndex < len(self.imageNames)):
-            retImg = Image.open(self.dataPath + self.paths['imageFilesPath'] + "/" + self.imageNames[self.imageIndex])
-            self.imageIndex += 1
-        return retImg
+    # def getNextImage(self) -> Image:
+    #     retImg = None
+    #     if(self.imageIndex < len(self.imageNames)):
+    #         retImg = Image.open(self.dataPath + self.paths['imageFilesPath'] + "/" + self.imageNames[self.imageIndex])
+    #         self.imageIndex += 1
+    #     return retImg

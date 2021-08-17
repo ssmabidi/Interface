@@ -3,6 +3,15 @@ import os
 from PIL import Image
 from abc import ABC, abstractmethod
 
+
+def pilToCV2(pil_image):
+    pil_image = pil_image.convert('RGB') 
+    open_cv_image = np.array(pil_image) 
+    # Convert RGB to BGR 
+    open_cv_image = open_cv_image[:, :, ::-1].copy()
+    
+    return open_cv_image 
+
 class DataSetInterface(ABC):
     '''A generic interface for Datasets. This interface defines the methods which will be called by the
     Algorithm interface in order to feed the data to the algorithms. The functions defined in this interface will be 
@@ -89,15 +98,36 @@ class DataSetInterface(ABC):
             self.imageNameIndex += 1
         return retFileName
     
-    @abstractmethod
-    def getImageAtIndex(self, i: int) -> Image:
-        '''Returns the image at index i. If i is greater than total number of images returns None.'''
-        pass
+    # @abstractmethod
+    # def getImageAtIndex(self, i: int) -> Image:
+    #     '''Returns the image at index i. If i is greater than total number of images returns None.'''
+    #     pass
 
-    @abstractmethod
-    def getNextImage(self) -> Image:
-        '''Returns the next image in order. If last image was already provided in previous call it will return None.'''
-        pass
+    # @abstractmethod
+    # def getNextImage(self) -> Image:
+    #     '''Returns the next image in order. If last image was already provided in previous call it will return None.'''
+    #     pass
+
+
+    def getImageAtIndex(self, i: int, cv2=False) -> Image:
+        """Returns Image at index i. If i is greater than total number of images returns None."""
+        # print(self.dataPath + self.paths['imageFilesPath'] + "/" + self.imageNames[i])
+        if(i >= 0 and i < len(self.imageNames)):
+            img = Image.open(self.dataPath + self.paths['imageFilesPath'] + "/" + self.imageNames[i])
+            if(cv2):
+                return pilToCV2(img)
+            return img
+        else:
+            return None
+
+    def getNextImage(self, cv2=False) -> Image:
+        retImg = None
+        if(self.imageIndex < len(self.imageNames)):
+            retImg = Image.open(self.dataPath + self.paths['imageFilesPath'] + "/" + self.imageNames[self.imageIndex])
+            self.imageIndex += 1
+            if(cv2):
+                retImg = pilToCV2(retImg)
+        return retImg
 
     def setImageIndex(self, i: int = 0):
         '''Sets image index to i. Default value is 0. So, if no parameter is provided it resets the image counter.'''
