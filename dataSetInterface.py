@@ -97,17 +97,6 @@ class DataSetInterface(ABC):
             retFileName = self.imageNames[self.imageNameIndex]
             self.imageNameIndex += 1
         return retFileName
-    
-    # @abstractmethod
-    # def getImageAtIndex(self, i: int) -> Image:
-    #     '''Returns the image at index i. If i is greater than total number of images returns None.'''
-    #     pass
-
-    # @abstractmethod
-    # def getNextImage(self) -> Image:
-    #     '''Returns the next image in order. If last image was already provided in previous call it will return None.'''
-    #     pass
-
 
     def getImageAtIndex(self, i: int, cv2=False) -> Image:
         """Returns Image at index i. If i is greater than total number of images returns None."""
@@ -128,6 +117,17 @@ class DataSetInterface(ABC):
             if(cv2):
                 retImg = pilToCV2(retImg)
         return retImg
+
+    def getCurrImage(self, cv2=False) -> Image:
+        retImg = None
+        if(self.imageIndex < len(self.imageNames)):
+            retImg = Image.open(self.dataPath + self.paths['imageFilesPath'] + "/" + self.imageNames[self.imageIndex - 1])
+            if(cv2):
+                retImg = pilToCV2(retImg)
+        return retImg
+
+    def getCurrImageIndex(self, cv2=False) -> Image:
+        return self.imageIndex - 1
 
     def setImageIndex(self, i: int = 0):
         '''Sets image index to i. Default value is 0. So, if no parameter is provided it resets the image counter.'''

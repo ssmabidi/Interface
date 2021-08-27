@@ -9,25 +9,29 @@ from layout_dsnalgo import dsAndAlgosPage
 from layout_dataset import datasetsPage
 from layout_algorithm import algorithmsPage
 
-# import callbacks
+import callbacks
+import globals
 
 app.layout = html.Div([
     dcc.Location(id='url', refresh=False),
     html.Div(id='page-content')
 ])
 
-@app.callback(dash.dependencies.Output('page-content', 'children'),
-              [dash.dependencies.Input('url', 'pathname')])
+@app.callback(
+     dash.dependencies.Output('page-content', 'children'),
+     [dash.dependencies.Input('url', 'pathname')])
 def display_page(pathname):
-    if pathname == '/apps/dsAndAlgos':
-         return dsAndAlgosPage
-    elif pathname == '/apps/datasets':
-         return datasetsPage
-    elif pathname == '/apps/algorithms':
-         return algorithmsPage
-    else:
-        return dsAndAlgosPage # This is the "default page"
-
+     if pathname == '/apps/dsAndAlgos':
+          return dsAndAlgosPage
+     elif pathname == '/apps/datasets':
+          return datasetsPage
+     elif pathname == '/apps/algorithms':
+          return algorithmsPage
+     else:
+          return dsAndAlgosPage # This is the "default page"
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+
+     globals.yoloInstance.load_network()
+
+     app.run_server(debug=False, dev_tools_hot_reload=False)

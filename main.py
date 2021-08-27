@@ -19,14 +19,15 @@ def main(argc, argv):
     print("In main")
     print('Number of arguments:', argc, 'arguments.')
 
-    yoloInstance = yoloAlgorithm([])
-    yoloInstance.load_network()
+    # yoloInstance = yoloAlgorithm([])
+    # yoloInstance.load_network()
     # yoloInstance.detect_image('yoloFiles/person.jpg')
 
     #For Zurich dataset python3 main.py ./Vocabulary/ORBvoc.txt ~/Datasets/AGZ
-    vocabularyPath = argv[1]
-    dataSetPath = argv[2]
+    # vocabularyPath = argv[1]
+    # dataSetPath = argv[2]
 
+    dataSetPath = '/home/shahamat/Datasets/auair2019data'
 
 
     interface = auAirDataset({"dataPath" : dataSetPath})
@@ -35,13 +36,14 @@ def main(argc, argv):
     cameraParams = interface.get_cameraParams()
 
     # print(cameraParams)
-    print(interface.getImageNames())
+    # print(interface.getImageNames())
 
-    # while nextImageName is not None:
-    #     nextImageName = interface.getNextImageName()
-    #     print(nextImageName)
+    nextImageName = interface.getNextImageName()
+    while nextImageName is not None:
+        nextImageName = interface.getNextImageName()
+        print(nextImageName)
 
-    yoloInstance.detect_image_file(interface.getImageAtIndex(0, cv2=True))
+    # yoloInstance.detect_image_file(interface.getImageAtIndex(0, cv2=True))
     # interface.getImageAtIndex(0).show()
 
 

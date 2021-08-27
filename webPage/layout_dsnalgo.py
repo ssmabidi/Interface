@@ -8,47 +8,13 @@ import plotly.graph_objects as go
 import layouts_common as common_layout
 
 
-
-
-
-####################################################################################################
-# TODO: - Testing!! This part of code should be refactored out of this file and placed somewhere
-# ------- else
-####################################################################################################
-
-
-# TODO: Is this the best way to import interfaces?
-import os, sys
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from zurichDataset import ZurichDataset
-
-import base64
-from io import BytesIO
-def pil_to_b64(im, enc_format="png", **kwargs):
-    """
-    Converts a PIL Image into base64 string for HTML displaying
-    :param im: PIL Image object
-    :param enc_format: The image format for displaying. If saved the image will have that extension.
-    :return: base64 encoding
-    """
-
-    buff = BytesIO()
-    im.save(buff, format=enc_format, **kwargs)
-    encoded = base64.b64encode(buff.getvalue()).decode("utf-8")
-
-    return encoded
-
-datasetInstance = ZurichDataset({"dataPath" : '/home/shahamat/Datasets/AGZ'}) #TODO: Read dataset path from user
-
-
-
-img_rgb = [[[255, 0, 0], [0, 255, 0], [0, 0, 255]],
-           [[0, 255, 0], [0, 0, 255], [255, 0, 0]]]
-
-
-####################################################################################################
-# TODO: - End here!!
-####################################################################################################
+import dash_bootstrap_components as dbc
+def get_buttons():
+    return html.Div([ #Internal row
+        html.Div([
+            dbc.Button('Next Image', color='light', className='mr-1', id='next_image', n_clicks=0),
+        ], className='col-12'),
+    ], className = 'row')
 
 
 
@@ -85,7 +51,7 @@ dsAndAlgosPage = html.Div([
                         html.Div([
                             dcc.Dropdown(id = 'dataset-dropdown',
                                 options = common_layout.availableDatasets,
-                                value = [''],
+                                value = None,
                                 placeholder = "Select a Dataset",
                                 style = {'font-size': '13px', 'color' : common_layout.corporate_colors['medium-blue-grey'], 'white-space': 'nowrap', 'text-overflow': 'ellipsis'}
                             )
@@ -101,7 +67,7 @@ dsAndAlgosPage = html.Div([
                         html.Div([
                             dcc.Dropdown(id = 'algorithm-dropdown',
                                 options = common_layout.availableAlgorithms,
-                                value = [''],
+                                value = None,
                                 placeholder = "Select an Algorithm",
                                 style = {'font-size': '13px', 'color' : common_layout.corporate_colors['medium-blue-grey'], 'white-space': 'nowrap', 'text-overflow': 'ellipsis'}
                             )
@@ -124,36 +90,35 @@ dsAndAlgosPage = html.Div([
     common_layout.get_emptyrow(),
 
     #####################
-    # #Row 5 : Charts
+    # #Row 5 : Images and Buttons
     html.Div([ # External row
 
         html.Div([], className = 'col-1'), # Blank 1 column
 
         html.Div([ # External 10-column
-
             html.H2(children = "Testbench Visualization", style = {'color' : common_layout.corporate_colors['white']}),
-
     
             html.Div([ # Internal row
-
-                # Chart Column
+                # Dataset Image Column
                 html.Div([
                     dcc.Graph(
                         id="dataset-image",
-                        figure = go.Figure(px.imshow(datasetInstance.getNextImage()))),
-                ], className= 'col-5'),
-                
-                html.Div([], className = 'col-2'), # Blank 2 column
+                        # figure = go.Figure(px.imshow(datasetInstance.getNextImage()))
+                )], className= 'col-6'),
 
-                # Chart Column
+                # html.Div([], className = 'col-2'), # Blank 2 column
+
+                # Algorithm Image Column
                 html.Div([
                     dcc.Graph(
                         id="algorithm-image",
-                        figure = go.Figure(go.Image(z=img_rgb))),
-                ], className= 'col-5'),
+                        # figure = go.Figure(px.imshow(datasetInstance.getCurrImage()))
+                )], className= 'col-6'),
 
             ],
             className = 'row'), # Internal row
+
+            get_buttons()
 
         ],
         className = 'col-10',
@@ -165,5 +130,6 @@ dsAndAlgosPage = html.Div([
     className = 'row',
     style = common_layout.externalgraph_rowstyling
     ), # External row
+    
 
 ])
