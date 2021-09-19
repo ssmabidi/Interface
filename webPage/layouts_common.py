@@ -57,13 +57,6 @@ navbarcurrentpage = {
     'text-decoration-color' : corporate_colors['pink-red'],
     'text-shadow': '0px 0px 1px rgb(251, 251, 252)'
     }
-
-####################################################################################################
-# 000 - SET IMPLEMENTED INTERFACES FOR DROPDOWN OPTIONS
-####################################################################################################
-availableDatasets = [{'label': 'Zurich Dataset', 'value': 'zurich'}, {'label': 'AuAir Dataset', 'value': 'AuAir'}]
-availableAlgorithms = [{'label': 'YOLO Darknet Algorithm', 'value': 'yolo'}]
-
 ################################################################################################################################################## SET UP END
 
 ####################################################################################################

@@ -44,3 +44,10 @@ auAirInstance = auAirDataset({"dataPath" : '/home/shahamat/Datasets/auair2019dat
 yoloInstance = yoloAlgorithm([])
 
 # yoloInstance.load_network()
+
+####################################################################################################
+# 000 - SET IMPLEMENTED INTERFACES FOR DROPDOWN OPTIONS
+####################################################################################################
+availableDatasets = [{'label': 'Zurich Dataset', 'value': 'zurich'}, {'label': 'AuAir Dataset', 'value': 'AuAir'}]
+availableAlgorithms = [{'label': 'YOLO Darknet Algorithm', 'value': 'yolo'}]
+

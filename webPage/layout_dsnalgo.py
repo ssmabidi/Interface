@@ -6,6 +6,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 import layouts_common as common_layout
+import globals
 
 
 import dash_bootstrap_components as dbc
@@ -13,6 +14,7 @@ def get_buttons():
     return html.Div([ #Internal row
         html.Div([
             dbc.Button('Next Image', color='light', className='mr-1', id='next_image', n_clicks=0),
+            dbc.Button('Apply Algo', color='light', className='mr-1', id='apply_algo', n_clicks=0),
         ], className='col-12'),
     ], className = 'row')
 
@@ -33,7 +35,11 @@ dsAndAlgosPage = html.Div([
     common_layout.get_navbar('dsAndAlgos'),
 
     #####################
-    #Row 3 : Selections
+    #Row 3
+    common_layout.get_emptyrow(),
+
+    #####################
+    #Row 4 : Selections
     html.Div([ # External row
 
         html.Div([ # External 12-column
@@ -50,7 +56,7 @@ dsAndAlgosPage = html.Div([
                         #DataSet selection
                         html.Div([
                             dcc.Dropdown(id = 'dataset-dropdown',
-                                options = common_layout.availableDatasets,
+                                options = globals.availableDatasets,
                                 value = None,
                                 placeholder = "Select a Dataset",
                                 style = {'font-size': '13px', 'color' : common_layout.corporate_colors['medium-blue-grey'], 'white-space': 'nowrap', 'text-overflow': 'ellipsis'}
@@ -66,7 +72,7 @@ dsAndAlgosPage = html.Div([
                         #Algorithm selection
                         html.Div([
                             dcc.Dropdown(id = 'algorithm-dropdown',
-                                options = common_layout.availableAlgorithms,
+                                options = globals.availableAlgorithms,
                                 value = None,
                                 placeholder = "Select an Algorithm",
                                 style = {'font-size': '13px', 'color' : common_layout.corporate_colors['medium-blue-grey'], 'white-space': 'nowrap', 'text-overflow': 'ellipsis'}
@@ -86,11 +92,11 @@ dsAndAlgosPage = html.Div([
     ], className = 'row sticky-top'), # External row
 
     #####################
-    #Row 4
+    #Row 5
     common_layout.get_emptyrow(),
 
     #####################
-    # #Row 5 : Images and Buttons
+    # #Row 6 : Images and Buttons
     html.Div([ # External row
 
         html.Div([], className = 'col-1'), # Blank 1 column
@@ -125,6 +131,9 @@ dsAndAlgosPage = html.Div([
         style = common_layout.externalgraph_colstyling), # External 10-column
 
         html.Div([], className = 'col-1'), # Blank 1 column
+
+        html.Div(id="detections0", className= 'col-6', style = {'backgroundColor' : 'white'}),
+        html.Div([html.Div(id="detections")], className= 'col-6', style = {'backgroundColor' : 'white'}),
 
     ],
     className = 'row',
