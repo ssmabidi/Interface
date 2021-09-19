@@ -21,9 +21,11 @@ class yoloAlgorithm(AlgorithmInterface):
         self.data_file = 'yoloFiles/coco.data'
         self.weights_file = 'yoloFiles/yolov4.weights'
         self.thresh = 0.5
+        # self.network = None
         
 
     def load_network(self):
+        # darknet.free_network_ptr(self.network)
         networkInfo = darknet.load_network(self.yolo_config, self.data_file, self.weights_file)
         # print(networkInfo)
         self.network = networkInfo[0]
