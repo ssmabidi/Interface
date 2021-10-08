@@ -6,6 +6,7 @@
 
 # # TODO: Is this the best way to import interfaces?
 import os, sys
+import uuid
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from zurichDataset import ZurichDataset
@@ -51,3 +52,12 @@ yoloInstance = yoloAlgorithm([])
 availableDatasets = [{'label': 'Zurich Dataset', 'value': 'zurich'}, {'label': 'AuAir Dataset', 'value': 'AuAir'}]
 availableAlgorithms = [{'label': 'YOLO Darknet Algorithm', 'value': 'yolo'}]
 
+datasetTypes = [{'label': 'Object Detection Dataset', 'value': 'od'}, {'label': 'Path Planning Dataset', 'value': 'pp'}]
+
+####################################################################################################
+# 001 - SET UPLOAD FILE PATHS FOR ALGORITHM CONFIGURATIONS
+####################################################################################################
+current_dir = os.getcwd()
+upload_dir = current_dir + "/upload_files"
+
+session_Id = uuid.uuid1()
