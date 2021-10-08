@@ -124,7 +124,10 @@ dsAndAlgosPage = html.Div([
             ],
             className = 'row'), # Internal row
 
-            get_buttons()
+            common_layout.get_emptyrow(),
+            get_buttons(),
+            common_layout.get_emptyrow(),
+
 
         ],
         className = 'col-10',
@@ -140,5 +143,8 @@ dsAndAlgosPage = html.Div([
     style = common_layout.externalgraph_rowstyling
     ), # External row
     
+    #####################
+    #Row 7
+    common_layout.get_emptyrow(),
 
 ])
