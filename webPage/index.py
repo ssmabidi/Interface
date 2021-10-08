@@ -1,3 +1,4 @@
+import os
 import dash_core_components as dcc
 import dash_html_components as html
 import dash
@@ -11,6 +12,10 @@ from layout_algorithm import algorithmsPage
 
 import callbacks
 import globals
+
+
+import dash_uploader as du
+
 
 app.layout = html.Div([
     dcc.Location(id='url', refresh=False),
@@ -33,5 +38,9 @@ def display_page(pathname):
 if __name__ == '__main__':
 
      globals.yoloInstance.load_network()
+
+
+     # Dash uploader creates folder if it does not exist
+     du.configure_upload(app, globals.upload_dir)
 
      app.run_server(debug=False, dev_tools_hot_reload=False)
