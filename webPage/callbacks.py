@@ -1,3 +1,6 @@
+import base64
+import os
+from urllib.parse import quote as urlquote
 import cv2
 import dash
 from app import app
@@ -6,10 +9,22 @@ import plotly.express as px
 import plotly.graph_objects as go
 from dash.exceptions import PreventUpdate
 import dash_core_components as dcc
+import dash_html_components as html
+
+from dash.dependencies import Input, Output, State
 
 import numpy as np
 
 import globals as g_var
+
+
+import datetime
+import io
+
+import dash_table
+
+import pandas as pd
+
 
 ####################################################################################################
 ####################################################################################################
@@ -24,9 +39,9 @@ import globals as g_var
 # 001 - Dataset Selection Dropdown && 002 - Next Image Button Click
 ####################################################################################################
 @app.callback(
-    dash.dependencies.Output('dataset-image', 'figure'),
-    [dash.dependencies.Input('next_image', 'n_clicks'),
-    dash.dependencies.Input('dataset-dropdown', 'value')])
+    Output('dataset-image', 'figure'),
+    [Input('next_image', 'n_clicks'),
+    Input('dataset-dropdown', 'value')])
 def getNextImage(n_clicks, dataset):
     if(dataset == None):
         raise PreventUpdate
@@ -47,11 +62,11 @@ def getNextImage(n_clicks, dataset):
 # 003 - Algorithm Selection Dropdown && # 004 - Apply Selected Algorithm on Current image
 ####################################################################################################
 @app.callback(
-    [dash.dependencies.Output('algorithm-image', 'figure'),
-    dash.dependencies.Output('detections0', 'children'),
-    dash.dependencies.Output('detections', 'children')],
-    [dash.dependencies.Input('algorithm-dropdown', 'value'),
-    dash.dependencies.Input('apply_algo', 'n_clicks')])
+    [Output('algorithm-image', 'figure'),
+    Output('detections0', 'children'),
+    Output('detections', 'children')],
+    [Input('algorithm-dropdown', 'value'),
+    Input('apply_algo', 'n_clicks')])
 def applyAlgo(algo, apply_click):
     if(algo == None or g_var.datasetInstance == None):
         raise PreventUpdate
@@ -81,10 +96,32 @@ def applyAlgo(algo, apply_click):
 # 005 - Select Dataset
 ####################################################################################################
 @app.callback(
-    [dash.dependencies.Output('config-header', 'children')
-    #, dash.dependencies.Output('detections23', 'children')
+    [Output('config-header', 'children')
+    , Output('dataset-total-images', 'value')
+    , Output('dataset-path', 'value')
+    , Output('dataset-training-percent', 'value')
+    , Output('camera-type', 'value')
+    , Output('camera-width', 'value')
+    , Output('camera-height', 'value')
+    , Output('camera-fps', 'value')
+    , Output('camera-colorEncoding', 'value')
+    , Output('orb-nFeatures', 'value')
+    , Output('orb-scaleFactor', 'value')
+    , Output('orb-nLevels', 'value')
+    , Output('orb-iniThFast', 'value')
+    , Output('orb-minThFast', 'value')
+    # , Output('dataset-training-percent', 'value')
+    # , Output('dataset-training-percent', 'value')
+    # , Output('dataset-training-percent', 'value')
+    # , Output('dataset-training-percent', 'value')
+    # , Output('dataset-training-percent', 'value')
+    # , Output('dataset-training-percent', 'value')
+    # , Output('dataset-training-percent', 'value')
+    # , Output('dataset-training-percent', 'value')
+    # , Output('dataset-training-percent', 'value')
+    # , Output('dataset-training-percent', 'value')
     ],
-    [dash.dependencies.Input('dataset-config-dropdown', 'value')])
+    [Input('dataset-config-dropdown', 'value')])
 def selectDatasetConfig(dataset):
     if(dataset == None):
         raise PreventUpdate
@@ -99,4 +136,82 @@ def selectDatasetConfig(dataset):
     if(g_var.datasetInstance != None):
         # g_var.availableDatasets
         header = dataset.capitalize() + ' Configurations'
-    return [header]
+        total_images = g_var.datasetInstance.getTotalImages()
+        dataset_path = g_var.datasetInstance.getDatasetPath()
+        traingDataPercent = g_var.datasetInstance.getTrainingPercent()
+        cameraConfig = g_var.datasetInstance.get_cameraParams()
+        orbConfig = g_var.datasetInstance.getOrbParams()
+        traingDataPercent = g_var.datasetInstance.getTrainingPercent()
+        traingDataPercent = g_var.datasetInstance.getTrainingPercent()
+        traingDataPercent = g_var.datasetInstance.getTrainingPercent()
+        traingDataPercent = g_var.datasetInstance.getTrainingPercent()
+        traingDataPercent = g_var.datasetInstance.getTrainingPercent()
+        traingDataPercent = g_var.datasetInstance.getTrainingPercent()
+        traingDataPercent = g_var.datasetInstance.getTrainingPercent()
+        traingDataPercent = g_var.datasetInstance.getTrainingPercent()
+        print(orbConfig)
+    return [header, total_images, dataset_path, traingDataPercent, cameraConfig['type'], cameraConfig['width'], cameraConfig['height'], 
+     cameraConfig['fps'], cameraConfig['RGB'], orbConfig['nFeatures'], orbConfig['scaleFactor'], orbConfig['nLevels'], orbConfig['iniThFAST'],
+     orbConfig['minThFAST'], 
+    # traingDataPercent, traingDataPercent, traingDataPercent, traingDataPercent, traingDataPercent, traingDataPercent, traingDataPercent, traingDataPercent, traingDataPercent, traingDataPercent, traingDataPercent, traingDataPercent, traingDataPercent, traingDataPercent, traingDataPercent, traingDataPercent, traingDataPercent, traingDataPercent, traingDataPercent
+    ]
+
+
+####################################################################################################
+####################################################################################################
+####################################################################################################
+# Callbacks for Algorithms Page
+####################################################################################################
+####################################################################################################
+####################################################################################################
+
+####################################################################################################
+# 005 - Upload File
+####################################################################################################
+
+
+@app.callback(
+    Output('callback-config-output', 'children'),
+    [Input('upload-config-file', 'isCompleted')],
+    [State('upload-config-file', 'fileNames'),
+     State('upload-config-file', 'upload_id')],
+)
+def callback_on_completion(iscompleted, filenames, upload_id):
+    if not iscompleted:
+        return
+
+    if filenames is not None:
+        return html.Div([filenames[0] + "uploaded successfully." ])
+
+    return html.Div("No Files Uploaded Yet!")
+
+
+@app.callback(
+    Output('callback-data-output', 'children'),
+    [Input('upload-data-file', 'isCompleted')],
+    [State('upload-data-file', 'fileNames'),
+     State('upload-data-file', 'upload_id')],
+)
+def callback_on_completion(iscompleted, filenames, upload_id):
+    if not iscompleted:
+        return
+
+    if filenames is not None:
+        return html.Div([filenames[0] + "uploaded successfully." ])
+
+    return html.Div("No Files Uploaded Yet!")
+
+@app.callback(
+    Output('callback-weights-output', 'children'),
+    [Input('upload-weights-test-file', 'isCompleted')],
+    [State('upload-weights-test-file', 'fileNames'),
+     State('upload-weights-test-file', 'upload_id')],
+)
+def callback_on_completion(iscompleted, filenames, upload_id):
+    if not iscompleted:
+        return
+
+    if filenames is not None:
+        return html.Div([filenames[0] + "uploaded successfully." ])
+
+    return html.Div("No Files Uploaded Yet!")
