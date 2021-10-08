@@ -6,17 +6,6 @@ from PIL import Image
 class ZurichDataset(DataSetInterface):
 
     # TODO: Currently these values are copied from EuRoC dataset. Need to update for zurich
-    orb = {
-        'zurich': {
-            'nFeatures': 1000,
-            'scaleFactor': 1.2,
-            'nLevels': 8,
-            'iniThFAST': 20,
-            'minThFAST': 7
-        }
-    }
-
-    # TODO: Currently these values are copied from EuRoC dataset. Need to update for zurich
     viewer = {
         'zurich': {
             'KeyFrameSize': 0.05,
@@ -60,6 +49,8 @@ class ZurichDataset(DataSetInterface):
         self.imageNameIndex = 0
         self.imageIndex = 0
         # unzipped_file = zipfile.ZipFile("sample.zip", "r")
+
+        self.traingDataPercent = 30
     
     # For reading the Intrinsic Matrix lecture from Kyle Simek is used which is available at http://ksimek.github.io/2013/08/13/intrinsic/
     def get_cameraParams(self) -> dict:
@@ -86,7 +77,7 @@ class ZurichDataset(DataSetInterface):
 
     # TODO: Implement details after more research
     def getOrbParams(self) -> dict:
-        return self.orb
+        return super().getOrbParams()
 
     # TODO: Implement details after more research
     def getViewerParams(self) -> dict:

@@ -58,7 +58,7 @@ class DataSetInterface(ABC):
         self.imageNames = None
         # Indexes to traverse data
         self.imageNameIndex = 0
-        self.imageIndex = 0        
+        self.imageIndex = 0
 
     @abstractmethod
     def get_cameraParams(self) -> dict:
@@ -135,4 +135,13 @@ class DataSetInterface(ABC):
             raise TypeError("Invalid Index!!")
         else:
             self.imageIndex = i
+
+    def getTotalImages(self):
+        return len(self.imageNames)
+
+    def getDatasetPath(self):
+        return self.dataPath
+
+    def getTrainingPercent(self):
+        return self.traingDataPercent
 
