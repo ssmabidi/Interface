@@ -52,7 +52,7 @@ yoloInstance = yoloAlgorithm([])
 availableDatasets = [{'label': 'Zurich Dataset', 'value': 'zurich'}, {'label': 'AuAir Dataset', 'value': 'AuAir'}]
 availableAlgorithms = [{'label': 'YOLO Darknet Algorithm', 'value': 'yolo'}]
 
-datasetTypes = [{'label': 'Object Detection Dataset', 'value': 'od'}, {'label': 'Path Planning Dataset', 'value': 'pp'}]
+datasetTypes = [{'label': 'Object Detection Dataset', 'value': 'objectDetection'}, {'label': 'Path Planning Dataset', 'value': 'pathPlanning'}]
 
 ####################################################################################################
 # 001 - SET UPLOAD FILE PATHS FOR ALGORITHM CONFIGURATIONS
