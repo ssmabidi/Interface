@@ -68,7 +68,7 @@ class DataSetInterface(ABC):
         Further values can be returned as required or provided by different datasets or algorithms.'''
         return self.camera
 
-    @abstractmethod
+    # @abstractmethod
     def getOrbParams(self) -> dict:
         '''Returns a dictionary with Oriented FAST and rotated BRIEF (ORB) paremeter values.
         These values include [number of features, scale factor between levels in the scale pyramid "scaleFactor", 
@@ -103,6 +103,7 @@ class DataSetInterface(ABC):
         # print(self.dataPath + self.paths['imageFilesPath'] + "/" + self.imageNames[i])
         if(i >= 0 and i < len(self.imageNames)):
             img = Image.open(self.dataPath + self.paths['imageFilesPath'] + "/" + self.imageNames[i])
+            self.setImageIndex(i)
             if(cv2):
                 return pilToCV2(img)
             return img
@@ -116,6 +117,17 @@ class DataSetInterface(ABC):
             self.imageIndex += 1
             if(cv2):
                 retImg = pilToCV2(retImg)
+        return retImg
+
+    def getPrevImage(self, cv2=False) -> Image:
+        retImg = None
+        if(self.imageIndex > 1):
+            self.imageIndex -= 1
+            retImg = Image.open(self.dataPath + self.paths['imageFilesPath'] + "/" + self.imageNames[self.imageIndex ])
+            if(cv2):
+                retImg = pilToCV2(retImg)
+        else:
+            retImg = self.getCurrImage(cv2)
         return retImg
 
     def getCurrImage(self, cv2=False) -> Image:
@@ -144,4 +156,10 @@ class DataSetInterface(ABC):
 
     def getTrainingPercent(self):
         return self.traingDataPercent
+
+    def setTrainingPercent(self, val):
+        self.traingDataPercent = val
+
+    def getDatasetType(self):
+        return self.datasetType
 

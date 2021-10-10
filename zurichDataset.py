@@ -5,30 +5,6 @@ from PIL import Image
 
 class ZurichDataset(DataSetInterface):
 
-    # TODO: Currently these values are copied from EuRoC dataset. Need to update for zurich
-    viewer = {
-        'zurich': {
-            'KeyFrameSize': 0.05,
-            'KeyFrameLineWidth': 1,
-            'GraphLineWidth': 0.9,
-            'PointSize': 2,
-            'CameraSize': 0.08,
-            'CameraLineWidth': 3,
-            'ViewpointX': 0,
-            'ViewpointY': -0.7,
-            'ViewpointZ': -1.8,
-            'ViewpointF': 500
-        }
-    }
-
-    # Transformation from camera to body-frame (imu)
-    transformationMatrix = {
-        'zurich': [1, 0, 0, -0.07566,
-               0, 1, 0, -0.02968,
-              0, 0, 1, 0.03227,
-               0.0, 0.0, 0.0, 1.0]
-    }
-
     def __init__(self, args: list):
         # Default values for dataSets taken from related papers
         # Values for Zurich dataSet. Paper link: http://rpg.ifi.uzh.ch/docs/IJRR17_Majdik.pdf
@@ -50,7 +26,30 @@ class ZurichDataset(DataSetInterface):
         self.imageIndex = 0
         # unzipped_file = zipfile.ZipFile("sample.zip", "r")
 
+        self.orb = {
+            'nFeatures': 1000,
+            'scaleFactor': 1.2,
+            'nLevels': 8,
+            'iniThFAST': 20,
+            'minThFAST': 7
+        }
+        self.viewer = {
+            'KeyFrameSize': 0.05,
+            'KeyFrameLineWidth': 1,
+            'GraphLineWidth': 0.9,
+            'PointSize': 2,
+            'CameraSize': 0.08,
+            'CameraLineWidth': 3,
+            'ViewpointX': 0,
+            'ViewpointY': -0.7,
+            'ViewpointZ': -1.8,
+            'ViewpointF': 500
+        }
+        # self.transformationMatrix = super().transformationMatrix
+
         self.traingDataPercent = 30
+
+        self.datasetType = 'pathPlanning'
     
     # For reading the Intrinsic Matrix lecture from Kyle Simek is used which is available at http://ksimek.github.io/2013/08/13/intrinsic/
     def get_cameraParams(self) -> dict:
@@ -75,13 +74,13 @@ class ZurichDataset(DataSetInterface):
 
         return self.camera
 
-    # TODO: Implement details after more research
-    def getOrbParams(self) -> dict:
-        return super().getOrbParams()
+    # # TODO: Implement details after more research
+    # def getOrbParams(self) -> dict:
+    #     return super().getOrbParams()
 
     # TODO: Implement details after more research
     def getViewerParams(self) -> dict:
-        return self.Viewer
+        return self.viewer
 
     # def getImageAtIndex(self, i: int) -> Image:
     #     """Returns Image at index i. If i is greater than total number of images returns None."""
@@ -98,3 +97,6 @@ class ZurichDataset(DataSetInterface):
     #         retImg = Image.open(self.dataPath + self.paths['imageFilesPath'] + "/" + self.imageNames[self.imageIndex])
     #         self.imageIndex += 1
     #     return retImg
+
+    def getDatasetType(self):
+        return self.datasetType
