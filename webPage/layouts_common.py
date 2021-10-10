@@ -75,11 +75,6 @@ def get_header():
                 className='col-8',
                 style = {'paddingTop' : '1%'}
             ),
-            html.Div(
-                [html.Img( src = app.get_asset_url('DLR_Logo.png'), height = '43 px', width = 'auto')],
-                className = 'col-2',
-                style = { 'align-items': 'center', 'paddingTop' : '1%', 'height' : 'auto'}
-            )
         ],
         className = 'row',
         style = {'height' : '4%', 'background-color' : corporate_colors['superdark-green']}
