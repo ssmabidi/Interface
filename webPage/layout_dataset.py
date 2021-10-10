@@ -72,6 +72,14 @@ datasetsPage = html.Div([
         html.Div([], className = 'col-1'), # Blank 1 column
 
         html.Div([ # External 10-column
+
+            html.Div([
+                dbc.Alert(
+                    id="notification-toast",
+                    is_open=False,
+                    duration=2000,
+                ),
+            ]),
             html.H2(id = "config-header", style = {'color' : common_layout.corporate_colors['white']}),
     
             html.Div([ # Internal row
@@ -79,6 +87,13 @@ datasetsPage = html.Div([
                 html.Div([
                     dbc.Card([
                         dbc.CardHeader("Basic Information"),
+                        html.Div([
+                            dbc.Alert(
+                                id="basic-info-toast",
+                                is_open=False,
+                                duration=2000,
+                            ),
+                        ]),
                         dbc.CardBody([
                             dbc.FormGroup([
                                 dbc.Label("Total number of images", width=2),
@@ -99,12 +114,12 @@ datasetsPage = html.Div([
                             dbc.Row([
                                 dbc.Label("View Sample data from the Dataset", width=12),
                                 dbc.Col([
-                                    dbc.Button("First Image", color="light", className="mr-1"),
-                                    dbc.Button("Previous Image", color="light", className="mr-1"),
-                                    dbc.Button("Next Image", color="light", className="mr-1"),
-                                    dbc.Button("Last Image", color="light", className="mr-1"),
-                                    dbc.Button("View Image", color="light", className="mr-1"),
-                                    dcc.Input(id='range', type='number', min=0, max=1000, step=1) 
+                                    dbc.Button("First Image", id='img-first', color="light", className="mr-1"),
+                                    dbc.Button("Previous Image", id='img-prev', color="light", className="mr-1"),
+                                    dbc.Button("Next Image", id='img-next', color="light", className="mr-1"),
+                                    dbc.Button("Last Image", id='img-last', color="light", className="mr-1"),
+                                    dbc.Label("View Image #", className="mr-1"),
+                                    dcc.Input(id='img-range', type='number', min=1, max=1000, step=1) 
                                 ], width=6,),
                                 dbc.Col([
                                     dcc.Graph(
@@ -113,23 +128,24 @@ datasetsPage = html.Div([
                                     )
                                 ], width=6,)
                             ]),
-                            # dbc.FormGroup([
-                            #     dbc.Label("Set Training Data Percentage", width=2),
-                            #     dbc.Col(
-                            #         dcc.Slider(id='dataset-training-percent', tooltip = { 'always_visible': True, 'placement': 'bottom' }, min=5, max=80, step=5, value=30, marks={5: '5%', 10: '10%', 15: '15%', 20: '20%', 25: '25%', 30: '30%', 35: '35%', 40: '40%', 45: '45%', 50: '50%', 55: '55%', 60: '60%', 65: '65%', 70: '70%', 75: '75%', 80: '80%'},
-                            #     ), width=10, ),
-                            # ], row=True,),
                         ],)
                     ]),
                     common_layout.get_emptyrow(),
                     dbc.Row([
                     dbc.Col([ dbc.Card([
                         dbc.CardHeader("Basic Configurations"),
+                        html.Div([
+                            dbc.Alert(
+                                id="basic-config-toast",
+                                is_open=False,
+                                duration=2000,
+                            ),
+                        ]),
                         dbc.CardBody([
                             dbc.FormGroup([
                                 dbc.Label("DataSet path", width=4),
                                 dbc.Col(
-                                    dbc.Input(type="text", id="dataset-path", placeholder="Enter path to read dataset"
+                                    dbc.Input(type="text", id="dataset-path", placeholder="Enter path to read dataset", disabled=True
                                 ), width=8, ),
                             ], row=True,),
                             dbc.FormGroup([
@@ -143,6 +159,13 @@ datasetsPage = html.Div([
                     
                     dbc.Col([dbc.Card([
                         dbc.CardHeader("Camera Configurations"),
+                        html.Div([
+                            dbc.Alert(
+                                id="camera-config-toast",
+                                is_open=False,
+                                duration=2000,
+                            ),
+                        ]),
                         dbc.CardBody([
                             dbc.FormGroup([
                                 dbc.Label("Camera Type", width=4),
@@ -181,6 +204,13 @@ datasetsPage = html.Div([
                     dbc.Row([
                     dbc.Col([dbc.Card([
                         dbc.CardHeader("ORB Configurations"),
+                        html.Div([
+                            dbc.Alert(
+                                id="orb-config-toast",
+                                is_open=False,
+                                duration=2000,
+                            ),
+                        ]),
                         dbc.CardBody([
                             dbc.FormGroup([
                                 dbc.Label("nFeatures", width=4),
@@ -218,6 +248,13 @@ datasetsPage = html.Div([
                     
                     dbc.Col([dbc.Card([
                         dbc.CardHeader("Viewer Configurations"),
+                        html.Div([
+                            dbc.Alert(
+                                id="viewer-config-toast",
+                                is_open=False,
+                                duration=2000,
+                            ),
+                        ]),
                         dbc.CardBody([
                             dbc.FormGroup([
                                 dbc.Label("KeyFrameSize", width=4),
