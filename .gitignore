@@ -2,3 +2,6 @@
 .DS_Store
 .env
 cache-directory
+upload_files
+tasks.py
+test.py
