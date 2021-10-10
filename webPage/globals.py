@@ -1,9 +1,3 @@
-####################################################################################################
-# TODO: - Testing!! This part of code should be refactored out of this file and placed somewhere
-# ------- else
-####################################################################################################
-
-
 # # TODO: Is this the best way to import interfaces?
 import os, sys
 import uuid

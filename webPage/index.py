@@ -1,16 +1,14 @@
-import os
 import dash_core_components as dcc
 import dash_html_components as html
 import dash
 
 from app import app
-from app import server
 
 from layout_dsnalgo import dsAndAlgosPage
 from layout_dataset import datasetsPage
 from layout_algorithm import algorithmsPage
 
-import callbacks
+import callbacks #import is required for controls
 import globals
 
 

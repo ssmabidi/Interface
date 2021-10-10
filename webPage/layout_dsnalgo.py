@@ -1,15 +1,11 @@
 import dash_core_components as dcc
 import dash_html_components as html
-from dash_html_components.Div import Div
-
-import plotly.express as px
-import plotly.graph_objects as go
 
 import layouts_common as common_layout
 import globals
 
-
 import dash_bootstrap_components as dbc
+
 def get_buttons():
     return html.Div([ #Internal row
         html.Div([
