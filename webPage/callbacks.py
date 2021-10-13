@@ -1,3 +1,4 @@
+import random
 import dash
 from app import app
 
@@ -31,10 +32,17 @@ import globals as g_var
 @app.callback(
     Output('dataset-image', 'figure'),
     [Input('next_image', 'n_clicks'),
-    Input('dataset-dropdown', 'value')])
-def getNextImage(n_clicks, dataset):
+    Input('dataset-dropdown', 'value'),
+    Input('prev_image', 'n_clicks'),
+    Input('first_image', 'n_clicks'),
+    Input('last_image', 'n_clicks'),
+    Input('rand_image', 'n_clicks'),])
+def getNextImage(n_clicks, dataset, n_clicks1, n_clicks2, n_clicks3, n_clicks4):
     if(dataset == None):
         raise PreventUpdate
+    ctx = dash.callback_context
+    triggerCause = ctx.triggered[0]['prop_id'].split('.')[0]
+
     if(dataset == 'zurich'):
         g_var.datasetInstance = g_var.zurichInstance
     elif(dataset == 'AuAir'):
@@ -44,7 +52,21 @@ def getNextImage(n_clicks, dataset):
 
     fig = None
     if(g_var.datasetInstance != None):
-        fig = go.Figure(px.imshow(g_var.datasetInstance.getNextImage()))
+        if(triggerCause ==  'dataset-dropdown'):
+            fig = go.Figure(px.imshow(g_var.datasetInstance.getCurrImage()))
+        if(triggerCause == 'next_image'):
+            fig = go.Figure(px.imshow(g_var.datasetInstance.getNextImage()))
+        if(triggerCause == 'first_image'):
+            fig = go.Figure(px.imshow(g_var.datasetInstance.getImageAtIndex(0)))
+        if(triggerCause == 'last_image'):
+            fig = go.Figure(px.imshow(g_var.datasetInstance.getImageAtIndex(g_var.datasetInstance.getTotalImages() - 1)))
+        if(triggerCause == 'prev_image'):
+            fig = go.Figure(px.imshow(g_var.datasetInstance.getPrevImage()))
+        if(triggerCause == 'rand_image'):
+            rand_num = random.randint(0, g_var.datasetInstance.getTotalImages())
+            fig = go.Figure(px.imshow(g_var.datasetInstance.getImageAtIndex(rand_num)))
+
+
     return fig
 
 

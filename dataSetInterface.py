@@ -100,10 +100,9 @@ class DataSetInterface(ABC):
 
     def getImageAtIndex(self, i: int, cv2=False) -> Image:
         """Returns Image at index i. If i is greater than total number of images returns None."""
-        # print(self.dataPath + self.paths['imageFilesPath'] + "/" + self.imageNames[i])
         if(i >= 0 and i < len(self.imageNames)):
             img = Image.open(self.dataPath + self.paths['imageFilesPath'] + "/" + self.imageNames[i])
-            self.setImageIndex(i)
+            self.imageIndex = i
             if(cv2):
                 return pilToCV2(img)
             return img
@@ -113,8 +112,8 @@ class DataSetInterface(ABC):
     def getNextImage(self, cv2=False) -> Image:
         retImg = None
         if(self.imageIndex < len(self.imageNames)):
-            retImg = Image.open(self.dataPath + self.paths['imageFilesPath'] + "/" + self.imageNames[self.imageIndex])
             self.imageIndex += 1
+            retImg = Image.open(self.dataPath + self.paths['imageFilesPath'] + "/" + self.imageNames[self.imageIndex])
             if(cv2):
                 retImg = pilToCV2(retImg)
         return retImg
@@ -123,7 +122,7 @@ class DataSetInterface(ABC):
         retImg = None
         if(self.imageIndex > 1):
             self.imageIndex -= 1
-            retImg = Image.open(self.dataPath + self.paths['imageFilesPath'] + "/" + self.imageNames[self.imageIndex ])
+            retImg = Image.open(self.dataPath + self.paths['imageFilesPath'] + "/" + self.imageNames[self.imageIndex])
             if(cv2):
                 retImg = pilToCV2(retImg)
         else:
@@ -133,13 +132,13 @@ class DataSetInterface(ABC):
     def getCurrImage(self, cv2=False) -> Image:
         retImg = None
         if(self.imageIndex < len(self.imageNames)):
-            retImg = Image.open(self.dataPath + self.paths['imageFilesPath'] + "/" + self.imageNames[self.imageIndex - 1])
+            retImg = Image.open(self.dataPath + self.paths['imageFilesPath'] + "/" + self.imageNames[self.imageIndex])
             if(cv2):
                 retImg = pilToCV2(retImg)
         return retImg
 
     def getCurrImageIndex(self, cv2=False) -> Image:
-        return self.imageIndex - 1
+        return self.imageIndex
 
     def setImageIndex(self, i: int = 0):
         '''Sets image index to i. Default value is 0. So, if no parameter is provided it resets the image counter.'''

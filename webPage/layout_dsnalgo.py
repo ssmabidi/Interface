@@ -1,3 +1,4 @@
+from dash_bootstrap_components._components.Button import Button
 import dash_core_components as dcc
 import dash_html_components as html
 
@@ -10,6 +11,10 @@ def get_buttons():
     return html.Div([ #Internal row
         html.Div([
             dbc.Button('Next Image', color='light', className='mr-1', id='next_image', n_clicks=0),
+            dbc.Button("Previous Image", color="light", className="mr-1", id='prev_image', n_clicks=0),
+            dbc.Button("First Image", color='light', className='mr-1', id='first_image', n_clicks=0),
+            dbc.Button("Last Image", color="light", className="mr-1", id='last_image', n_clicks=0),
+            dbc.Button("Random Image", color="light", className="mr-1", id='rand_image', n_clicks=0),
             dbc.Button('Apply Algo', color='light', className='mr-1', id='apply_algo', n_clicks=0),
         ], className='col-12'),
     ], className = 'row')
