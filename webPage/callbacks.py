@@ -180,7 +180,7 @@ def selectDatasetConfig(dataset, btnFirst, btnPrev, btnNext, btnLast, rangeVal):
         viewerConfig = g_var.datasetInstance.getViewerParams()
         datasetType = g_var.datasetInstance.getDatasetType()
         if(triggerCause == 'dataset-config-dropdown'):
-            fig = go.Figure(px.imshow(g_var.datasetInstance.getNextImage()))
+            fig = go.Figure(px.imshow(g_var.datasetInstance.geCurrImage()))
         else:
             notificationText = dash.no_update
             notificationAlert = False
@@ -237,6 +237,76 @@ def setTrainingPercent(dsTrainVal):
 ####################################################################################################
 
 ####################################################################################################
+# 001 - Select Algorithm
+####################################################################################################
+@app.callback(
+    [ Output("algo-notification-toast", "children")
+    , Output("algo-notification-toast", "is_open")
+    , Output('algorithm-threshold', 'value')
+    ],
+    [ Input('algorithm-config-dropdown', 'value')
+    , Input('reload-network', 'n_clicks')
+    ]
+    )
+def selectAlgoConfig(algo, n_clicks):
+
+    ctx = dash.callback_context
+    triggerCause = ctx.triggered[0]['prop_id'].split('.')[0]
+
+    print("\n\n-----------------\n")
+    print(triggerCause)
+    print("\n-----------------\n\n")
+    if(triggerCause == 'algorithm-config-dropdown'):
+        if(algo == None):
+            raise PreventUpdate
+        if(algo == 'yolo'):
+            g_var.algoInstance = g_var.yoloInstance
+        else:
+            g_var.algoInstance = None
+
+        thresholdVal = g_var.algoInstance.get_threshold();
+        notificationText = "Algorithm Selected"
+        return [notificationText, True, thresholdVal]
+    elif(triggerCause == 'reload-network'):
+        g_var.algoInstance.reload_network()
+
+        notificationText = "Network loaded successfully"
+        return [notificationText, True, dash.no_update]
+
+    else:
+        raise PreventUpdate
+
+
+####################################################################################################
+# 001 - Update Basic Config
+####################################################################################################
+@app.callback(
+    [ Output("algo-basic-config-toast", "children")
+    , Output("algo-basic-config-toast", "is_open")
+    ],
+    [ Input('algorithm-threshold', 'value')
+    ]
+    )
+def selectAlgoConfig(threshold):
+
+    ctx = dash.callback_context
+    triggerCause = ctx.triggered[0]['prop_id'].split('.')[0]
+
+    print("\n\n-----------------\n")
+    print(triggerCause)
+    print("\n-----------------\n\n")
+    if(triggerCause == 'algorithm-threshold'):
+        if g_var.algoInstance is None:
+            raise PreventUpdate
+        g_var.algoInstance.set_threshold(threshold)
+        notificationText = "Threshold Updated Successfully"
+        return [notificationText, True]
+
+    else:
+        raise PreventUpdate
+
+
+####################################################################################################
 # 001 - Upload Config File
 ####################################################################################################
 @app.callback(
@@ -251,7 +321,7 @@ def callback_on_completion(iscompleted, filenames, upload_id):
 
     if filenames is not None:
         g_var.algoInstance.set_config_file(g_var.upload_dir+"/"+upload_id+"/"+filenames[0])
-        return html.Div([filenames[0] + "uploaded successfully." ])
+        return html.Div([filenames[0] + " uploaded successfully." ])
 
     return html.Div("No Files Uploaded Yet!")
 
@@ -270,7 +340,7 @@ def callback_on_completion(iscompleted, filenames, upload_id):
 
     if filenames is not None:
         g_var.algoInstance.set_data_file(g_var.upload_dir+"/"+upload_id+"/"+filenames[0])
-        return html.Div([filenames[0] + "uploaded successfully." ])
+        return html.Div([filenames[0] + " uploaded successfully." ])
 
     return html.Div("No Files Uploaded Yet!")
 
@@ -289,6 +359,10 @@ def callback_on_completion(iscompleted, filenames, upload_id):
 
     if filenames is not None:
         g_var.algoInstance.set_weights_file(g_var.upload_dir+"/"+upload_id+"/"+filenames[0])
-        return html.Div([filenames[0] + "uploaded successfully." ])
+        return html.Div([filenames[0] + " uploaded successfully." ])
 
     return html.Div("No Files Uploaded Yet!")
+
+####################################################################################################
+# 004 - Set Threshold
+####################################################################################################

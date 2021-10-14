@@ -19,3 +19,12 @@ class AlgorithmInterface(ABC):
     
     def set_data_file(self, filePath):
         self.data_file = filePath
+
+    def set_threshold(self, threshold):
+        self.thresh = threshold
+
+    def get_threshold(self):
+        return self.thresh
+
+    def reload_network(self):
+        pass

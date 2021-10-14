@@ -6,6 +6,9 @@ from algorithmInterface import AlgorithmInterface
 import cv2
 from yoloFiles import darknet
 
+import gc
+import torch
+
 def c_array(ctype, values):
     arr = (ctype*len(values))()
     arr[:] = values
@@ -67,3 +70,33 @@ class yoloAlgorithm(AlgorithmInterface):
 
         else:
             return detections
+
+    def set_config_file(self, filePath):
+        self.yolo_config = filePath
+
+    def set_weights_file(self, filePath):
+        self.weights_file = filePath
+    
+    def set_data_file(self, filePath):
+        self.data_file = filePath
+
+    def set_threshold(self, threshold):
+        self.thresh = threshold
+
+    def get_threshold(self):
+        return self.thresh
+
+    def reload_network(self):
+        print("\n\n\n\n#################\n\n\n\n")
+        print("loading network\n")
+        darknet.free_network_ptr(self.network)
+        gc.collect()
+        torch.cuda.empty_cache()
+        print("\n\n\n\n#################\n\n\n\n")
+        print("network cleared\n")
+        self.load_network()
+
+        print("\n\n\n\n#################\n\n\n\n")
+        print("Network Loaded")
+        print("\n\n\n\n#################\n\n\n\n")
+    

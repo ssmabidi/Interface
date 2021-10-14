@@ -43,7 +43,7 @@ algorithmsPage = html.Div([
                         html.H5(children='Select an Algorithm:', style = {'text-align' : 'left', 'color' : common_layout.corporate_colors['medium-blue-grey']}),
                         #DataSet selection
                         html.Div([
-                            dcc.Dropdown(id = 'dataset-config-dropdown',
+                            dcc.Dropdown(id = 'algorithm-config-dropdown',
                                 options = globals.availableAlgorithms,
                                 value = None,
                                 placeholder = "Select an Algorithm",
@@ -80,8 +80,16 @@ algorithmsPage = html.Div([
             html.Div([ # Internal row
                 # Dataset Image Column
                 html.Div([
-                     dbc.Card([
-                        dbc.CardHeader("Basic Configurations"),
+                    dbc.Row([
+                    dbc.Col([ dbc.Card([
+                        dbc.CardHeader("Network Configurations"),
+                        html.Div([
+                            dbc.Alert(
+                                id="algo-notification-toast",
+                                is_open=False,
+                                duration=2000,
+                            ),
+                        ]),
                         dbc.CardBody([
                             dbc.FormGroup([
                                 dbc.Label("Upload Config File", width=2),
@@ -134,19 +142,41 @@ algorithmsPage = html.Div([
                                 width=10, ),
                             ], row=True,),
 
+                            dbc.Row([
+                                dbc.Col([
+                                    dbc.Button("Reload Network", id='reload-network', color="dark", className="mr-1"),
+                                ], width=6,),
+                            ]),
+
+                        ],)
+                    ]), ], width=12),
+                    
+                    ]),
+                    common_layout.get_emptyrow(),
+
+                    dbc.Row([
+                    dbc.Col([ dbc.Card([
+                        dbc.CardHeader("Basic Configurations"),
+                        html.Div([
+                            dbc.Alert(
+                                id="algo-basic-config-toast",
+                                is_open=False,
+                                duration=2000,
+                            ),
+                        ]),
+                        dbc.CardBody([
                             dbc.FormGroup([
                                 dbc.Label("Set Threshold", width=2),
                                 dbc.Col(
-                                    dcc.Slider(id='dataset-training-percent', tooltip = { 'always_visible': True, 'placement': 'bottom' }, min=0, max=1, step=0.05, value=0.5, marks={0.0: '0.0', 0.1: '0.1', 0.2: '0.2', 0.3: '0.3', 0.4: '0.4', 0.5: '0.5', 0.6: '0.6', 0.7: '0.7', 0.8: '0.8', 0.9: '0.9', 1.0: '1.0'},
+                                    dcc.Slider(id='algorithm-threshold', tooltip = { 'always_visible': True, 'placement': 'bottom' }, min=0, max=1, step=0.05, value=0.5, marks={0.0: '0.0', 0.1: '0.1', 0.2: '0.2', 0.3: '0.3', 0.4: '0.4', 0.5: '0.5', 0.6: '0.6', 0.7: '0.7', 0.8: '0.8', 0.9: '0.9', 1.0: '1.0'},
                                 ), width=10, ),
                             ], row=True,),
-                            
-
-                            html.H2("File List"),
-                            html.Ul(id="file-list"),
                         ],)
+                    ]) ], width=12),
+                    
                     ]),
                     common_layout.get_emptyrow(),
+
                 ], className= 'col-12'),
 
                 # html.Div([], className = 'col-2'), # Blank 2 column
