@@ -87,16 +87,11 @@ class yoloAlgorithm(AlgorithmInterface):
         return self.thresh
 
     def reload_network(self):
-        print("\n\n\n\n#################\n\n\n\n")
-        print("loading network\n")
         darknet.free_network_ptr(self.network)
         gc.collect()
         torch.cuda.empty_cache()
-        print("\n\n\n\n#################\n\n\n\n")
-        print("network cleared\n")
         self.load_network()
 
-        print("\n\n\n\n#################\n\n\n\n")
-        print("Network Loaded")
-        print("\n\n\n\n#################\n\n\n\n")
-    
+    def batch_detect(self):
+        pass
+        # darknet.network_predict_batch()
