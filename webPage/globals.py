@@ -1,12 +1,11 @@
 # # TODO: Is this the best way to import interfaces?
 import os, sys
 import uuid
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from zurichDataset import ZurichDataset
-from auAirDataset import auAirDataset
-from yoloAlgorithm import yoloAlgorithm
-
+from dataSetInterface import DataSetInterface
+from algorithmInterface import AlgorithmInterface
 
 ####################################################################################################
 # TODO: - End here!!
@@ -28,17 +27,13 @@ def pil_to_b64(im, enc_format="png", **kwargs):
 
      return encoded
 
-
-
 datasetInstance = None
 algoInstance = None
 
-zurichInstance = ZurichDataset({"dataPath" : '/home/shahamat/Datasets/AGZ'}) #TODO: Read dataset path from user
-auAirInstance = auAirDataset({"dataPath" : '/home/shahamat/Datasets/auair2019data'}) #TODO: Read dataset path from user
+zurichInstance = DataSetInterface({"dataSetClass": "zurichDataset", "dataPath" : '/home/shahamat/Datasets/AGZ'}) #TODO: Read dataset path from user
+auAirInstance = DataSetInterface({"dataSetClass": "auAirDataset", "dataPath" : '/home/shahamat/Datasets/auair2019data'}) #TODO: Read dataset path from user
 
-yoloInstance = yoloAlgorithm([])
-
-# yoloInstance.load_network()
+yoloInstance = AlgorithmInterface({"algorithmClass": "yoloAlgorithm"})
 
 ####################################################################################################
 # 000 - SET IMPLEMENTED INTERFACES FOR DROPDOWN OPTIONS

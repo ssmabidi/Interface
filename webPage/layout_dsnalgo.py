@@ -15,8 +15,11 @@ def get_buttons():
             dbc.Button("First Image", color='light', className='mr-1', id='first_image', n_clicks=0),
             dbc.Button("Last Image", color="light", className="mr-1", id='last_image', n_clicks=0),
             dbc.Button("Random Image", color="light", className="mr-1", id='rand_image', n_clicks=0),
+        ], className='col-9'),
+        html.Div([
             dbc.Button('Apply Algo', color='light', className='mr-1', id='apply_algo', n_clicks=0),
-        ], className='col-12'),
+            dbc.Button('Batch Apply Algo', color='light', className='mr-1', id='batch_apply_algo', n_clicks=0),
+        ], className='col-3'),
     ], className = 'row')
 
 
@@ -139,6 +142,8 @@ dsAndAlgosPage = html.Div([
         html.Div(id="detections0", className= 'col-6', style = {'backgroundColor' : 'white'}),
         html.Div([html.Div(id="detections")], className= 'col-6', style = {'backgroundColor' : 'white'}),
 
+        html.Div(id="batchDetections", className= 'col-6', style = {'backgroundColor' : 'white'}),
+        
     ],
     className = 'row',
     style = common_layout.externalgraph_rowstyling

@@ -97,6 +97,28 @@ def applyAlgo(algo, apply_click):
 
 
 ####################################################################################################
+# 005 - Algorithm Batch Apply 
+####################################################################################################
+@app.callback(
+    [
+    Output('batchDetections', 'children')],
+    [Input('batch_apply_algo', 'n_clicks'),
+    ])
+def batchApplyAlgo(n_clicks):
+    if(g_var.algoInstance == None or g_var.datasetInstance == None):
+        raise PreventUpdate
+
+    g_var.algoInstance.batch_detect()
+    # fig = None
+    # img_detections = None
+    # if(g_var.datasetInstance != None):
+    #     curr_img = g_var.datasetInstance.getCurrImage(cv2=True)
+    #     img_detections = g_var.algoInstance.detect_image_file(curr_img)
+    #     fig = go.Figure(px.imshow(img_detections[1]))
+    return ["Applied"]
+
+
+####################################################################################################
 ####################################################################################################
 ####################################################################################################
 # Callbacks for Datasets Page
@@ -175,12 +197,12 @@ def selectDatasetConfig(dataset, btnFirst, btnPrev, btnNext, btnLast, rangeVal):
         total_images = g_var.datasetInstance.getTotalImages()
         dataset_path = g_var.datasetInstance.getDatasetPath()
         traingDataPercent = g_var.datasetInstance.getTrainingPercent()
-        cameraConfig = g_var.datasetInstance.get_cameraParams()
+        cameraConfig = g_var.datasetInstance.getCameraParams()
         orbConfig = g_var.datasetInstance.getOrbParams()
         viewerConfig = g_var.datasetInstance.getViewerParams()
         datasetType = g_var.datasetInstance.getDatasetType()
         if(triggerCause == 'dataset-config-dropdown'):
-            fig = go.Figure(px.imshow(g_var.datasetInstance.geCurrImage()))
+            fig = go.Figure(px.imshow(g_var.datasetInstance.getCurrImage()))
         else:
             notificationText = dash.no_update
             notificationAlert = False
@@ -253,9 +275,6 @@ def selectAlgoConfig(algo, n_clicks):
     ctx = dash.callback_context
     triggerCause = ctx.triggered[0]['prop_id'].split('.')[0]
 
-    print("\n\n-----------------\n")
-    print(triggerCause)
-    print("\n-----------------\n\n")
     if(triggerCause == 'algorithm-config-dropdown'):
         if(algo == None):
             raise PreventUpdate
@@ -292,9 +311,6 @@ def selectAlgoConfig(threshold):
     ctx = dash.callback_context
     triggerCause = ctx.triggered[0]['prop_id'].split('.')[0]
 
-    print("\n\n-----------------\n")
-    print(triggerCause)
-    print("\n-----------------\n\n")
     if(triggerCause == 'algorithm-threshold'):
         if g_var.algoInstance is None:
             raise PreventUpdate
