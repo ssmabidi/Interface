@@ -107,6 +107,14 @@ dsAndAlgosPage = html.Div([
         html.Div([], className = 'col-1'), # Blank 1 column
 
         html.Div([ # External 10-column
+            dbc.Alert(
+                id="dsnalgo-error-toast",
+                dismissable=True,
+                fade=False,
+                is_open=False,
+                color="danger",
+            ),
+
             html.H2(children = "Testbench Visualization", style = {'color' : common_layout.corporate_colors['white']}),
     
             html.Div([ # Internal row

@@ -3,7 +3,11 @@ from PIL import Image
 class DataSetInterface():
     '''An interface for Datasets. This interface intracts with the testbench and provides the data from the datasets.
     It defines the methods which are called by the testbench in order to feed the data to the algorithms through Algorithm Interface.
-    The functions defined in this interface simply calls the functions in different dataset classes which implements the DatasetAbstract Class.'''
+    The functions defined in this interface simply calls the functions in different dataset classes which implements the DatasetAbstract Class.
+    
+    Attributes:
+        dataSetInstance -- The instance of dataSet class
+    '''
 
     def __init__(self, args: dict):
         '''The constructor of Dataset Interface. This constructor just reads which dataset class is to be created and passes the arguments it recieves.
@@ -122,10 +126,10 @@ class DataSetInterface():
         if(self.dataSetInstance.getDatasetType() == "objectDetection"):
             return self.dataSetInstance.getGroundTruth(imageName)
         else:
-            return None
+            raise Exception("This Function is only available for Object Detection DataSets.")
 
     def getCategory(self, classIdx: int):
         if(self.dataSetInstance.getDatasetType() == "objectDetection"):
             return self.dataSetInstance.getCategory(classIdx)
         else:
-            return None
+            raise Exception("This Function is only available for Object Detection DataSets.")

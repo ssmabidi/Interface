@@ -27,7 +27,10 @@ from globals import zurichInstance, auAirInstance, yoloInstance #imports needed 
 # 001 - Dataset Selection Dropdown && 002 - Next Image Button Click
 ####################################################################################################
 @app.callback(
-    Output('dataset-image', 'figure'),
+    [Output('dataset-image', 'figure')
+    , Output("dsnalgo-error-toast", "children")
+    , Output("dsnalgo-error-toast", "is_open")
+    ],
     [Input('next_image', 'n_clicks'),
     Input('dataset-dropdown', 'value'),
     Input('prev_image', 'n_clicks'),
@@ -43,6 +46,9 @@ def getNextImage(n_clicks, dataset, n_clicks1, n_clicks2, n_clicks3, n_clicks4, 
     triggerCause = ctx.triggered[0]['prop_id'].split('.')[0]
 
     g_var.datasetInstance = globals()[dataset]
+
+    toast_text = dash.no_update
+    toast_open = False
 
     fig = None
     if(g_var.datasetInstance != None):
@@ -61,30 +67,35 @@ def getNextImage(n_clicks, dataset, n_clicks1, n_clicks2, n_clicks3, n_clicks4, 
             fig = go.Figure(px.imshow(g_var.datasetInstance.getImageAtIndex(rand_num)))
 
         if(triggerCause == 'ground_truth'):
-            groundTruth = g_var.datasetInstance.getGroundTruth(g_var.datasetInstance.getCurrImageName())
-            fig = go.Figure(px.imshow(groundTruth["orgImg"]))
-            for bbox in groundTruth["annotations"]:
-                category = g_var.datasetInstance.getCategory(bbox["class"])
-                fig.add_shape(
-                    type="rect",
-                    x0=bbox["left"], 
-                    y0=bbox["top"], 
-                    x1=bbox["left"] + bbox["width"], 
-                    y1=bbox["top"] + bbox["height"],
-                    line=dict(color=category["color"], width=2, ),
-                )
-                fig.add_annotation(
-                    x=bbox["left"], 
-                    y=bbox["top"],
-                    text=category["label"],
-                    showarrow=False,
-                    font=dict( size=16, color="#ffffff" ),
-                    align="center",
-                    opacity=1,
-                    bgcolor="#000000",
-                )
+            try:
+                groundTruth = g_var.datasetInstance.getGroundTruth(g_var.datasetInstance.getCurrImageName())
+                fig = go.Figure(px.imshow(groundTruth["orgImg"]))
+                for bbox in groundTruth["annotations"]:
+                    category = g_var.datasetInstance.getCategory(bbox["class"])
+                    fig.add_shape(
+                        type="rect",
+                        x0=bbox["left"], 
+                        y0=bbox["top"], 
+                        x1=bbox["left"] + bbox["width"], 
+                        y1=bbox["top"] + bbox["height"],
+                        line=dict(color=category["color"], width=2, ),
+                    )
+                    fig.add_annotation(
+                        x=bbox["left"], 
+                        y=bbox["top"],
+                        text=category["label"],
+                        showarrow=False,
+                        font=dict( size=16, color="#ffffff" ),
+                        align="center",
+                        opacity=1,
+                        bgcolor="#000000",
+                    )
+            except Exception as inst:
+                fig = dash.no_update
+                toast_text = str(inst)
+                toast_open = True
 
-    return fig
+    return [fig, toast_text, toast_open]
 
 
 ####################################################################################################
