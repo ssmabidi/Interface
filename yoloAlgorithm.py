@@ -10,11 +10,6 @@ from yoloFiles import darknet
 import gc
 import torch
 
-def c_array(ctype, values):
-    arr = (ctype*len(values))()
-    arr[:] = values
-    return arr
-    
 class yoloAlgorithm(AlgorithmAbstractClass):
 
     def __init__(self, args: list):
@@ -44,7 +39,7 @@ class yoloAlgorithm(AlgorithmAbstractClass):
     #     h = img.shape[1]
     #     w = img.shape[2]
     #     img = (img/255.0).flatten()
-    #     data = c_array(darknet.c_float, img)
+    #     data = super().c_array(darknet.c_float, img)
     #     im = darknet.IMAGE(w,h,c,data)
 
     #     # img_ins = darknet.IMAGE
