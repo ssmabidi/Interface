@@ -15,6 +15,7 @@ def get_buttons():
             dbc.Button("First Image", color='light', className='mr-1', id='first_image', n_clicks=0),
             dbc.Button("Last Image", color="light", className="mr-1", id='last_image', n_clicks=0),
             dbc.Button("Random Image", color="light", className="mr-1", id='rand_image', n_clicks=0),
+            dbc.Button("Ground Truth", color="light", className="mr-1", id='ground_truth', n_clicks=0),
         ], className='col-9'),
         html.Div([
             dbc.Button('Apply Algo', color='light', className='mr-1', id='apply_algo', n_clicks=0),

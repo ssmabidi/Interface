@@ -53,7 +53,6 @@ class zurichDataset(DataSetAbstractClass):
         self.traingDataPercent = 30
         self.datasetType = 'pathPlanning'
 
-        self.imageNameIndex = 0
         self.imageIndex = 0
     
     # For reading the Intrinsic Matrix lecture from Kyle Simek is used which is available at http://ksimek.github.io/2013/08/13/intrinsic/
@@ -99,9 +98,9 @@ class zurichDataset(DataSetAbstractClass):
         if(self.imageNames == None):
             raise TypeError("Object parameter 'self.imageNames' is not initialized")
         retFileName = None
-        if(self.imageNameIndex < len(self.imageNames)):
-            retFileName = self.imageNames[self.imageNameIndex]
-            self.imageNameIndex += 1
+        if(self.imageIndex < len(self.imageNames)):
+            retFileName = self.imageNames[self.imageIndex]
+            self.imageIndex += 1
         return retFileName
 
     def getImageAtIndex(self, i: int, cv2=False) -> Image:
@@ -145,6 +144,9 @@ class zurichDataset(DataSetAbstractClass):
 
     def getCurrImageIndex(self, cv2=False) -> Image:
         return self.imageIndex
+
+    def getCurrImageName(self) -> str:
+        return self.imageNames[self.imageIndex]
 
     def setImageIndex(self, i: int = 0):
         '''Sets image index to i. Default value is 0. So, if no parameter is provided it resets the image counter.'''

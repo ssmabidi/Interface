@@ -78,6 +78,11 @@ class DataSetAbstractClass(ABC):
         pass
 
     @abstractmethod
+    def getCurrImageName(self) -> str:
+        '''Returns the name of current image file.'''
+        pass
+
+    @abstractmethod
     def setImageIndex(self, i: int = 0):
         '''Sets image index to i. Default value is 0. So, if no parameter is provided it resets the image counter.'''
         pass

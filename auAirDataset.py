@@ -1,6 +1,9 @@
 from dataSetAbstractClass import DataSetAbstractClass
 import os
 from PIL import Image
+import json
+import random
+        
 
 class auAirDataset(DataSetAbstractClass):
 
@@ -18,7 +21,8 @@ class auAirDataset(DataSetAbstractClass):
 
         # Default path to images within the folder.
         self.paths = {
-            'imageFilesPath': '/images'
+            'imageFilesPath': '/auair2019data/images',
+            'annotations': '/annotations_v1.1.json'
         }
         self.dataPath = args["dataPath"]
         self.imageNames = sorted(os.listdir(self.dataPath + self.paths['imageFilesPath']))
@@ -49,8 +53,18 @@ class auAirDataset(DataSetAbstractClass):
         self.traingDataPercent = 25
         self.datasetType = 'objectDetection'
 
-        self.imageNameIndex = 0
         self.imageIndex = 0
+
+        with open(self.dataPath + self.paths['annotations']) as f:
+            self.dataFile = json.load(f)
+
+        self.categories = {}
+        
+        for category in self.dataFile["categories"]:
+            r = lambda: random.randint(0,255)
+            self.categories[category] = '#%02X%02X%02X' % (r(),r(),r())
+
+        self.annotations = {item['image_name']:item for item in self.dataFile["annotations"]}
 
     def getCameraParams(self) -> dict:
         return self.camera
@@ -76,9 +90,9 @@ class auAirDataset(DataSetAbstractClass):
         if(self.imageNames == None):
             raise TypeError("Object parameter 'self.imageNames' is not initialized")
         retFileName = None
-        if(self.imageNameIndex < len(self.imageNames)):
-            retFileName = self.imageNames[self.imageNameIndex]
-            self.imageNameIndex += 1
+        if(self.imageIndex < len(self.imageNames)):
+            retFileName = self.imageNames[self.imageIndex]
+            self.imageIndex += 1
         return retFileName
 
     def getImageAtIndex(self, i: int, cv2=False) -> Image:
@@ -123,6 +137,9 @@ class auAirDataset(DataSetAbstractClass):
     def getCurrImageIndex(self, cv2=False) -> Image:
         return self.imageIndex
 
+    def getCurrImageName(self) -> str:
+        return self.imageNames[self.imageIndex]
+
     def setImageIndex(self, i: int = 0):
         '''Sets image index to i. Default value is 0. So, if no parameter is provided it resets the image counter.'''
         if(i > len(self.imageNames) or i < 0):
@@ -156,3 +173,14 @@ class auAirDataset(DataSetAbstractClass):
             retArry.append(self.getImageAtIndex(i, cv2))
 
         return retArry
+
+    def getGroundTruth(self, imageName: str, getOriginalImage: bool = True) -> dict:
+        retImg = None
+        if(getOriginalImage):
+            retImg = self.getImageAtIndex(self.imageNames.index(imageName))
+        return {"annotations": self.annotations[imageName]["bbox"], "orgImg": retImg}
+
+    def getCategory(self, classIdx: int):
+        category = list(self.categories)[classIdx]
+        color = self.categories[category]
+        return {"label": category, "color": color}

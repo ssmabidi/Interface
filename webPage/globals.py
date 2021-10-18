@@ -31,7 +31,7 @@ datasetInstance = None
 algoInstance = None
 
 zurichInstance = DataSetInterface({"dataSetClass": "zurichDataset", "dataPath" : '/home/shahamat/Datasets/AGZ'}) #TODO: Read dataset path from user
-auAirInstance = DataSetInterface({"dataSetClass": "auAirDataset", "dataPath" : '/home/shahamat/Datasets/auair2019data'}) #TODO: Read dataset path from user
+auAirInstance = DataSetInterface({"dataSetClass": "auAirDataset", "dataPath" : '/home/shahamat/Datasets/auAir'}) #TODO: Read dataset path from user
 
 yoloInstance = AlgorithmInterface({"algorithmClass": "yoloAlgorithm"})
 

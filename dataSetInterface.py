@@ -78,6 +78,11 @@ class DataSetInterface():
         
         return self.dataSetInstance.getCurrImageIndex()
 
+    def getCurrImageName(self) -> str:
+        '''Returns the name of current image file.'''
+        
+        return self.dataSetInstance.getCurrImageName()
+
     def setImageIndex(self, i: int = 0):
         '''Sets image index to i. Default value is 0. So, if no parameter is provided it resets the image counter. Does not return any value.'''
         
@@ -112,3 +117,15 @@ class DataSetInterface():
         '''Returns a batch of images.'''
         
         return self.dataSetInstance.getBatchImages(startIdx, batchSize, cv2)
+
+    def getGroundTruth(self, imageName: str):
+        if(self.dataSetInstance.getDatasetType() == "objectDetection"):
+            return self.dataSetInstance.getGroundTruth(imageName)
+        else:
+            return None
+
+    def getCategory(self, classIdx: int):
+        if(self.dataSetInstance.getDatasetType() == "objectDetection"):
+            return self.dataSetInstance.getCategory(classIdx)
+        else:
+            return None
