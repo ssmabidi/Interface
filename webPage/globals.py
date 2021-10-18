@@ -38,8 +38,8 @@ yoloInstance = AlgorithmInterface({"algorithmClass": "yoloAlgorithm"})
 ####################################################################################################
 # 000 - SET IMPLEMENTED INTERFACES FOR DROPDOWN OPTIONS
 ####################################################################################################
-availableDatasets = [{'label': 'Zurich Dataset', 'value': 'zurich'}, {'label': 'AuAir Dataset', 'value': 'AuAir'}]
-availableAlgorithms = [{'label': 'YOLO Darknet Algorithm', 'value': 'yolo'}]
+availableDatasets = [{'label': 'Zurich Dataset', 'value': 'zurichInstance'}, {'label': 'AuAir Dataset', 'value': 'auAirInstance'}]
+availableAlgorithms = [{'label': 'YOLO Darknet Algorithm', 'value': 'yoloInstance'}]
 
 datasetTypes = [{'label': 'Object Detection Dataset', 'value': 'objectDetection'}, {'label': 'Path Planning Dataset', 'value': 'pathPlanning'}]
 

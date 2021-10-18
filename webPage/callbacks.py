@@ -11,6 +11,8 @@ from dash.dependencies import Input, Output, State
 import numpy as np
 import globals as g_var
 
+from globals import zurichInstance, auAirInstance, yoloInstance #imports needed separately for globals dict
+
 
 ####################################################################################################
 ####################################################################################################
@@ -34,16 +36,12 @@ import globals as g_var
     Input('rand_image', 'n_clicks'),])
 def getNextImage(n_clicks, dataset, n_clicks1, n_clicks2, n_clicks3, n_clicks4):
     if(dataset == None):
+        g_var.datasetInstance = None
         raise PreventUpdate
     ctx = dash.callback_context
     triggerCause = ctx.triggered[0]['prop_id'].split('.')[0]
 
-    if(dataset == 'zurich'):
-        g_var.datasetInstance = g_var.zurichInstance
-    elif(dataset == 'AuAir'):
-        g_var.datasetInstance = g_var.auAirInstance
-    else:
-        g_var.datasetInstance = None
+    g_var.datasetInstance = globals()[dataset]
 
     fig = None
     if(g_var.datasetInstance != None):
@@ -75,12 +73,14 @@ def getNextImage(n_clicks, dataset, n_clicks1, n_clicks2, n_clicks3, n_clicks4):
     [Input('algorithm-dropdown', 'value'),
     Input('apply_algo', 'n_clicks')])
 def applyAlgo(algo, apply_click):
-    if(algo == None or g_var.datasetInstance == None):
-        raise PreventUpdate
-    if(algo == 'yolo'):
-        g_var.algoInstance = g_var.yoloInstance
-    else:
+    if(algo == None):
         g_var.algoInstance = None
+        raise PreventUpdate
+
+    g_var.algoInstance = globals()[algo]
+
+    if(g_var.datasetInstance == None):
+        raise PreventUpdate
 
     fig = None
     img_detections = None
@@ -171,13 +171,10 @@ def selectDatasetConfig(dataset, btnFirst, btnPrev, btnNext, btnLast, rangeVal):
     triggerCause = ctx.triggered[0]['prop_id'].split('.')[0]
 
     if(dataset == None):
-        raise PreventUpdate
-    if(dataset == 'zurich'):
-        g_var.datasetInstance = g_var.zurichInstance
-    elif(dataset == 'AuAir'):
-        g_var.datasetInstance = g_var.auAirInstance
-    else:
         g_var.datasetInstance = None
+        raise PreventUpdate
+
+    g_var.datasetInstance = globals()[dataset]    
 
     header = 'Select a Dataset'
 
@@ -272,15 +269,15 @@ def selectAlgoConfig(algo, n_clicks):
 
     if(triggerCause == 'algorithm-config-dropdown'):
         if(algo == None):
-            raise PreventUpdate
-        if(algo == 'yolo'):
-            g_var.algoInstance = g_var.yoloInstance
-        else:
             g_var.algoInstance = None
+            raise PreventUpdate
+
+        g_var.algoInstance = globals()[algo]
 
         thresholdVal = g_var.algoInstance.get_threshold();
         notificationText = "Algorithm Selected"
         return [notificationText, True, thresholdVal]
+    
     elif(triggerCause == 'reload-network'):
         g_var.algoInstance.reload_network()
 
@@ -292,7 +289,7 @@ def selectAlgoConfig(algo, n_clicks):
 
 
 ####################################################################################################
-# 001 - Update Basic Config
+# 001 - Update Basic Config - Set Threshold
 ####################################################################################################
 @app.callback(
     [ Output("algo-basic-config-toast", "children")
@@ -374,6 +371,3 @@ def callback_on_completion(iscompleted, filenames, upload_id):
 
     return html.Div("No Files Uploaded Yet!")
 
-####################################################################################################
-# 004 - Set Threshold
-####################################################################################################
