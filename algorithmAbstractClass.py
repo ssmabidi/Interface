@@ -53,7 +53,11 @@ class AlgorithmAbstractClass(ABC):
         pass
 
     @abstractmethod
-    def batch_detect(self):
+    def batch_detect(self, dirPath):
+        pass
+
+    @abstractmethod
+    def get_batch_json(self):
         pass
 
     def c_array(self, ctype, values) -> list:

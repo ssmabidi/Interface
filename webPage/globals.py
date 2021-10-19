@@ -27,16 +27,25 @@ def pil_to_b64(im, enc_format="png", **kwargs):
 
      return encoded
 
+
+####################################################################################################
+# 000 - UNIQUE SESSION ID FOR EACH USER
+####################################################################################################
+session_Id = uuid.uuid1()
+
+####################################################################################################
+# 001 - DATASET AND ALGORITHM INSTANCES TO BE USED THROUGHOUT THE TESTBENCH
+####################################################################################################
 datasetInstance = None
 algoInstance = None
 
 zurichInstance = DataSetInterface({"dataSetClass": "zurichDataset", "dataPath" : '/home/shahamat/Datasets/AGZ'}) #TODO: Read dataset path from user
 auAirInstance = DataSetInterface({"dataSetClass": "auAirDataset", "dataPath" : '/home/shahamat/Datasets/auAir'}) #TODO: Read dataset path from user
 
-yoloInstance = AlgorithmInterface({"algorithmClass": "yoloAlgorithm"})
+yoloInstance = AlgorithmInterface({"algorithmClass": "yoloAlgorithm", "session_id": session_Id})
 
 ####################################################################################################
-# 000 - SET IMPLEMENTED INTERFACES FOR DROPDOWN OPTIONS
+# 002 - SET IMPLEMENTED INTERFACES FOR DROPDOWN OPTIONS
 ####################################################################################################
 availableDatasets = [{'label': 'Zurich Dataset', 'value': 'zurichInstance'}, {'label': 'AuAir Dataset', 'value': 'auAirInstance'}]
 availableAlgorithms = [{'label': 'YOLO Darknet Algorithm', 'value': 'yoloInstance'}]
@@ -44,9 +53,12 @@ availableAlgorithms = [{'label': 'YOLO Darknet Algorithm', 'value': 'yoloInstanc
 datasetTypes = [{'label': 'Object Detection Dataset', 'value': 'objectDetection'}, {'label': 'Path Planning Dataset', 'value': 'pathPlanning'}]
 
 ####################################################################################################
-# 001 - SET UPLOAD FILE PATHS FOR ALGORITHM CONFIGURATIONS
+# 003 - SET UPLOAD FILE PATHS FOR ALGORITHM CONFIGURATIONS
 ####################################################################################################
 current_dir = os.getcwd()
 upload_dir = current_dir + "/upload_files"
 
-session_Id = uuid.uuid1()
+####################################################################################################
+# 003 - SET DOWNLOAD FILE PATHS FOR ALGORITHM'S BATCH DETECTION FILES
+# ####################################################################################################
+download_dir = current_dir + "/download_files/" + str(session_Id)

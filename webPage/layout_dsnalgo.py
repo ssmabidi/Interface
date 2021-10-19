@@ -122,16 +122,12 @@ dsAndAlgosPage = html.Div([
                 html.Div([
                     dcc.Graph(
                         id="dataset-image",
-                        # figure = go.Figure(px.imshow(datasetInstance.getNextImage()))
                 )], className= 'col-6'),
-
-                # html.Div([], className = 'col-2'), # Blank 2 column
 
                 # Algorithm Image Column
                 html.Div([
                     dcc.Graph(
                         id="algorithm-image",
-                        # figure = go.Figure(px.imshow(datasetInstance.getCurrImage()))
                 )], className= 'col-6'),
 
             ],

@@ -149,7 +149,7 @@ def applyAlgo(algo, apply_click, batch_click):
         if(g_var.algoInstance == None or g_var.datasetInstance == None):
             raise PreventUpdate
 
-        img_detections = g_var.algoInstance.batch_detect(g_var.datasetInstance.getBatchImages(batchSize=100, cv2=True, getNames=True))
+        img_detections = g_var.algoInstance.batch_detect(g_var.datasetInstance.getBatchImages(batchSize=10, cv2=True, getNames=True), dirPath=g_var.download_dir)
         table_header = [
             html.Thead(html.Tr([html.Th("Image Name"), html.Th("Detected Object"), html.Th("Accuracy"), html.Th("x0"), html.Th("y0"), html.Th("width"), html.Th("height")]))
         ]
@@ -175,18 +175,21 @@ def applyAlgo(algo, apply_click, batch_click):
     else:
         raise PreventUpdate
 
-# import json 
-# @app.callback(
-#     Output("download-results-json", "data"),
-#     Input("download_json", "n_clicks"),
-#     prevent_initial_call=True,
-# )
-# def func(n_clicks):
-#     df = {"a": [1, 2, 3, 4], "b": [2, 1, 5, 6], "c": ["x", "x", "y", "y"]}
-#     return dcc.send_data_frame(json.dumps(df, indent = 4) , "mydf.json")
-#     # return dcc.send_file(
-#     #     "./dash_docs/assets/images/gallery/dash-community-components.png"
-#     # )
+####################################################################################################
+# 006 - Download JSON File
+####################################################################################################
+@app.callback(
+    Output("download-results-json", "data"),
+    Input("download_json", "n_clicks")
+)
+def download_json(n_clicks):
+    ctx = dash.callback_context
+    triggerCause = ctx.triggered[0]['prop_id'].split('.')[0]
+
+    if(triggerCause == 'download_json'):
+        return dcc.send_file(g_var.algoInstance.get_batch_json())
+    else:
+        raise PreventUpdate
 
 
 ####################################################################################################

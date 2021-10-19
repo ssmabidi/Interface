@@ -56,6 +56,9 @@ class AlgorithmInterface():
         '''This function reloads the network.'''
         return self.algorithmInstance.reload_network()
 
-    def batch_detect(self, images: Image) -> dict:
+    def batch_detect(self, images: Image, dirPath: str) -> dict:
         '''This function runs the algorithm on all the images provided in images parameter and returns the results as a dictionary'''
-        return self.algorithmInstance.batch_detect(images)
+        return self.algorithmInstance.batch_detect(images, dirPath)
+
+    def get_batch_json(self):
+        return self.algorithmInstance.get_batch_json()

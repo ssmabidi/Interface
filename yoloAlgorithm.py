@@ -1,8 +1,7 @@
+import json
 import os
-import random
 from PIL.Image import Image
-import numpy as np
-# from algorithmInterface import AlgorithmInterface
+from pathlib import Path
 from algorithmAbstractClass import AlgorithmAbstractClass
 
 import cv2
@@ -21,6 +20,7 @@ class yoloAlgorithm(AlgorithmAbstractClass):
         self.weights_file = 'yoloFiles/yolov4.weights'
         self.thresh = 0.5
         self.network = None
+        self.batch_json = None
 
     def load_network(self):
         '''This function loads the algorithm's network and store it in class variable for use in other functions. It must be called after Algorithm 
@@ -38,21 +38,6 @@ class yoloAlgorithm(AlgorithmAbstractClass):
 
         self.network_width = darknet.network_width(self.network)
         self.network_height = darknet.network_height(self.network)
-
-    # def detect_image(self, file_name):
-    #     img = cv2.imread(file_name)
-
-    #     img = img.transpose(2,0,1)
-    #     c = img.shape[0]
-    #     h = img.shape[1]
-    #     w = img.shape[2]
-    #     img = (img/255.0).flatten()
-    #     data = super().c_array(darknet.c_float, img)
-    #     im = darknet.IMAGE(w,h,c,data)
-
-    #     # img_ins = darknet.IMAGE
-    #     detections = darknet.detect_image(self.network, self.class_names, im)
-    #     return detections
 
     def detect_image_file(self, cv2Image: Image, getImage: bool = True) -> list:
         '''This function takes the image in CV2 format and applies the algorthm to detect the object in the image. A list of dictionaries is returned.
@@ -105,13 +90,21 @@ class yoloAlgorithm(AlgorithmAbstractClass):
         torch.cuda.empty_cache()
         self.load_network()
 
-    def batch_detect(self, images):
+    def batch_detect(self, images, dirPath):
         detections = []
         for img in images:
             detc, im = self.detect_image_file(img["image"])
             detections.append({"image_name": img["name"], "bbox": detc})
             name=img["name"]
             cv2.imwrite(os.path.join("data/" , name), im)
-        # print(detections)
+
+        Path(dirPath).mkdir(parents=True, exist_ok=True)
+
+        with open(dirPath + '/data.json', 'w') as file:
+            json.dump(detections, file, indent=4)
+
+        self.batch_json = dirPath + '/data.json'
         return detections
-        # return super().batch_detect()
+
+    def get_batch_json(self):
+        return self.batch_json
