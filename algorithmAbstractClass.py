@@ -60,6 +60,11 @@ class AlgorithmAbstractClass(ABC):
     def get_batch_json(self):
         pass
 
+    @abstractmethod
+    def get_batch_zip(self):
+        pass
+
+
     def c_array(self, ctype, values) -> list:
         arr = (ctype*len(values))()
         arr[:] = values

@@ -62,3 +62,6 @@ class AlgorithmInterface():
 
     def get_batch_json(self):
         return self.algorithmInstance.get_batch_json()
+
+    def get_batch_zip(self):
+        return self.algorithmInstance.get_batch_zip()

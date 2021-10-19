@@ -149,7 +149,7 @@ def applyAlgo(algo, apply_click, batch_click):
         if(g_var.algoInstance == None or g_var.datasetInstance == None):
             raise PreventUpdate
 
-        img_detections = g_var.algoInstance.batch_detect(g_var.datasetInstance.getBatchImages(batchSize=10, cv2=True, getNames=True), dirPath=g_var.download_dir)
+        img_detections = g_var.algoInstance.batch_detect(g_var.datasetInstance.getBatchImages(batchSize=100, cv2=True, getNames=True), dirPath=g_var.download_dir)
         table_header = [
             html.Thead(html.Tr([html.Th("Image Name"), html.Th("Detected Object"), html.Th("Accuracy"), html.Th("x0"), html.Th("y0"), html.Th("width"), html.Th("height")]))
         ]
@@ -188,6 +188,22 @@ def download_json(n_clicks):
 
     if(triggerCause == 'download_json'):
         return dcc.send_file(g_var.algoInstance.get_batch_json())
+    else:
+        raise PreventUpdate
+
+####################################################################################################
+# 007 - Download ZIP File Containing batch images with annotations
+####################################################################################################
+@app.callback(
+    Output("download-results-zip", "data"),
+    Input("download_zip", "n_clicks")
+)
+def download_zip(n_clicks):
+    ctx = dash.callback_context
+    triggerCause = ctx.triggered[0]['prop_id'].split('.')[0]
+
+    if(triggerCause == 'download_zip'):
+        return dcc.send_file(g_var.algoInstance.get_batch_zip())
     else:
         raise PreventUpdate
 

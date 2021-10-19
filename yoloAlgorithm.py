@@ -2,6 +2,7 @@ import json
 import os
 from PIL.Image import Image
 from pathlib import Path
+from zipfile import ZipFile
 from algorithmAbstractClass import AlgorithmAbstractClass
 
 import cv2
@@ -21,6 +22,7 @@ class yoloAlgorithm(AlgorithmAbstractClass):
         self.thresh = 0.5
         self.network = None
         self.batch_json = None
+        self.batch_zip = None
 
     def load_network(self):
         '''This function loads the algorithm's network and store it in class variable for use in other functions. It must be called after Algorithm 
@@ -92,19 +94,27 @@ class yoloAlgorithm(AlgorithmAbstractClass):
 
     def batch_detect(self, images, dirPath):
         detections = []
+        Path(dirPath).mkdir(parents=True, exist_ok=True)
+        
+        zipObj = ZipFile(dirPath + '/images.zip', 'w')
+        
         for img in images:
             detc, im = self.detect_image_file(img["image"])
             detections.append({"image_name": img["name"], "bbox": detc})
             name=img["name"]
-            cv2.imwrite(os.path.join("data/" , name), im)
+            retval, buf = cv2.imencode('.' + name.split(".")[-1], im)
+            zipObj.writestr(name, buf)
 
-        Path(dirPath).mkdir(parents=True, exist_ok=True)
 
         with open(dirPath + '/data.json', 'w') as file:
             json.dump(detections, file, indent=4)
 
         self.batch_json = dirPath + '/data.json'
+        self.batch_zip = dirPath + '/images.zip'
         return detections
 
     def get_batch_json(self):
         return self.batch_json
+
+    def get_batch_zip(self):
+        return self.batch_zip
