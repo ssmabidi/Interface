@@ -7,6 +7,9 @@ import plotly.graph_objects as go
 from dash.exceptions import PreventUpdate
 import dash_html_components as html
 from dash.dependencies import Input, Output, State
+import dash_bootstrap_components as dbc
+import dash_core_components as dcc
+
 
 import numpy as np
 import globals as g_var
@@ -99,53 +102,91 @@ def getNextImage(n_clicks, dataset, n_clicks1, n_clicks2, n_clicks3, n_clicks4, 
 
 
 ####################################################################################################
-# 003 - Algorithm Selection Dropdown && # 004 - Apply Selected Algorithm on Current image
+# 003 - Algorithm Selection Dropdown && # 004 - Apply Selected Algorithm on Current image &&
+# 005 - Algorithm Batch Apply
 ####################################################################################################
 @app.callback(
     [Output('algorithm-image', 'figure'),
-    Output('detections0', 'children'),
-    Output('detections', 'children')],
+    Output('results_body', 'children'),
+    Output('results_header', 'children'),
+    Output('results_collapseable', 'is_open')],
     [Input('algorithm-dropdown', 'value'),
-    Input('apply_algo', 'n_clicks')])
-def applyAlgo(algo, apply_click):
-    if(algo == None):
-        g_var.algoInstance = None
+    Input('apply_algo', 'n_clicks'),
+    Input('batch_apply_algo', 'n_clicks'),])
+def applyAlgo(algo, apply_click, batch_click):
+
+    ctx = dash.callback_context
+    triggerCause = ctx.triggered[0]['prop_id'].split('.')[0]
+
+    if(triggerCause == 'algorithm-dropdown' or triggerCause == 'apply_algo'):
+        if(algo == None):
+            g_var.algoInstance = None
+            raise PreventUpdate
+
+        g_var.algoInstance = globals()[algo]
+
+        if(g_var.datasetInstance == None):
+            raise PreventUpdate
+
+        fig = None
+        img_detections = None
+        table_header = [
+            html.Thead(html.Tr([html.Th("Detected Object"), html.Th("Accuracy"), html.Th("x0"), html.Th("y0"), html.Th("width"), html.Th("height")]))
+        ]
+        table_body = None
+        if(g_var.datasetInstance != None):
+            curr_img = g_var.datasetInstance.getCurrImage(cv2=True)
+            img_detections = g_var.algoInstance.detect_image_file(curr_img)
+            fig = go.Figure(px.imshow(img_detections[1]))
+            rows = []
+            for detect in img_detections[0]:
+                rows.append(html.Tr([html.Td(detect[0]), html.Td(detect[1]), html.Td(detect[2][0]), html.Td(detect[2][1]), html.Td(detect[2][2]), html.Td(detect[2][3])]))
+            table_body = [html.Tbody(rows)]
+        table = dbc.Table(table_header + table_body, bordered = True)
+        return [fig, table, "Detection Results", True]
+
+    if(triggerCause == 'batch_apply_algo'):
+        if(g_var.algoInstance == None or g_var.datasetInstance == None):
+            raise PreventUpdate
+
+        img_detections = g_var.algoInstance.batch_detect(g_var.datasetInstance.getBatchImages(batchSize=100, cv2=True, getNames=True))
+        table_header = [
+            html.Thead(html.Tr([html.Th("Image Name"), html.Th("Detected Object"), html.Th("Accuracy"), html.Th("x0"), html.Th("y0"), html.Th("width"), html.Th("height")]))
+        ]
+        rows = []
+        for image in img_detections:
+            for detect in image["bbox"]:
+                rows.append(html.Tr([html.Td(image["image_name"]), html.Td(detect[0]), html.Td(detect[1]), html.Td(detect[2][0]), html.Td(detect[2][1]), html.Td(detect[2][2]), html.Td(detect[2][3])]))
+        table_body = [html.Tbody(rows)]
+        table = dbc.Table(table_header + table_body, bordered = True)
+        
+        buttons = html.Div([ #Internal row
+            html.Div([
+                dbc.Button("Download Results as JSON", id="download_json", color='dark', className='mr-1 mb-1',),
+                dcc.Download(id="download-results-json"),
+
+                dbc.Button("Download detected images as zip", id="download_zip", color='dark', className='mr-1 mb-1',),
+                dcc.Download(id="download-results-zip"),
+            ], className='col-12'),
+        ], className = 'row')
+
+        return [dash.no_update, [buttons, table], "Batch Apply Results", True]
+
+    else:
         raise PreventUpdate
 
-    g_var.algoInstance = globals()[algo]
-
-    if(g_var.datasetInstance == None):
-        raise PreventUpdate
-
-    fig = None
-    img_detections = None
-    if(g_var.datasetInstance != None):
-        curr_img = g_var.datasetInstance.getCurrImage(cv2=True)
-        img_detections = g_var.algoInstance.detect_image_file(curr_img)
-        fig = go.Figure(px.imshow(img_detections[1]))
-    return fig, str(img_detections[0]), np.array_str(img_detections[1])
-
-
-####################################################################################################
-# 005 - Algorithm Batch Apply 
-####################################################################################################
-@app.callback(
-    [
-    Output('batchDetections', 'children')],
-    [Input('batch_apply_algo', 'n_clicks'),
-    ])
-def batchApplyAlgo(n_clicks):
-    if(g_var.algoInstance == None or g_var.datasetInstance == None):
-        raise PreventUpdate
-
-    g_var.algoInstance.batch_detect()
-    # fig = None
-    # img_detections = None
-    # if(g_var.datasetInstance != None):
-    #     curr_img = g_var.datasetInstance.getCurrImage(cv2=True)
-    #     img_detections = g_var.algoInstance.detect_image_file(curr_img)
-    #     fig = go.Figure(px.imshow(img_detections[1]))
-    return ["Applied"]
+# import json 
+# @app.callback(
+#     Output("download-results-json", "data"),
+#     Input("download_json", "n_clicks"),
+#     prevent_initial_call=True,
+# )
+# def func(n_clicks):
+#     df = {"a": [1, 2, 3, 4], "b": [2, 1, 5, 6], "c": ["x", "x", "y", "y"]}
+#     return dcc.send_data_frame(json.dumps(df, indent = 4) , "mydf.json")
+#     # return dcc.send_file(
+#     #     "./dash_docs/assets/images/gallery/dash-community-components.png"
+#     # )
 
 
 ####################################################################################################

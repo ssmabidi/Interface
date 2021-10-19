@@ -140,7 +140,17 @@ dsAndAlgosPage = html.Div([
             common_layout.get_emptyrow(),
             get_buttons(),
             common_layout.get_emptyrow(),
+            dbc.Collapse(
+                dbc.Card([
+                    dbc.CardHeader(id="results_header"),
+                    dbc.CardBody([], id="results_body")
+                ]) ,
+                style = {'backgroundColor' : 'white'},
+                id="results_collapseable",
+                is_open=False,
+            ),
 
+            common_layout.get_emptyrow(),
 
         ],
         className = 'col-10',
@@ -148,11 +158,6 @@ dsAndAlgosPage = html.Div([
 
         html.Div([], className = 'col-1'), # Blank 1 column
 
-        html.Div(id="detections0", className= 'col-6', style = {'backgroundColor' : 'white'}),
-        html.Div([html.Div(id="detections")], className= 'col-6', style = {'backgroundColor' : 'white'}),
-
-        html.Div(id="batchDetections", className= 'col-6', style = {'backgroundColor' : 'white'}),
-        
     ],
     className = 'row',
     style = common_layout.externalgraph_rowstyling

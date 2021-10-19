@@ -3,8 +3,12 @@ from PIL import Image
 class AlgorithmInterface():
     '''An interface for Algorithms. This interface intracts with the testbench and provides the algorithm classes with the data received from the 
     datasets through testbench. It defines the methods which are called by the testbench in order to communicate with the dataset classes.
-    The functions defined in this interface simply calls the functions in different algorithm classes which implements the AlgorithmAbstract Class.'''
+    The functions defined in this interface simply calls the functions in different algorithm classes which implements the AlgorithmAbstract Class.
+    
+    Attributes:
+        algorithmInstance -- The instance of algorithm class
 
+    '''
 
     def __init__(self, args: dict):
         '''The constructor of Algorithm Interface. This constructor just reads which algorithm class is to be created and passes the arguments it
@@ -20,9 +24,6 @@ class AlgorithmInterface():
         '''This function loads the algorithm's network and store it in class variable for use in other functions. It must be called after Algorithm 
         interface is instantiated in order for later functions to use the network.'''
         self.algorithmInstance.load_network()
-
-    # def detect_image(self, file_name):
-    #     pass
 
     def detect_image_file(self, cv2Image: Image, getImage: bool = True) -> list:
         '''This function takes the image in CV2 format and applies the algorthm to detect the object in the image. A list of dictionaries is returned.
@@ -55,6 +56,6 @@ class AlgorithmInterface():
         '''This function reloads the network.'''
         return self.algorithmInstance.reload_network()
 
-    def batch_detect(self):
-        "WIP"
-        return self.algorithmInstance.batch_detect()
+    def batch_detect(self, images: Image) -> dict:
+        '''This function runs the algorithm on all the images provided in images parameter and returns the results as a dictionary'''
+        return self.algorithmInstance.batch_detect(images)

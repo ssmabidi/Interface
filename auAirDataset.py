@@ -162,7 +162,7 @@ class auAirDataset(DataSetAbstractClass):
     def getDatasetType(self):
         return self.datasetType
 
-    def getBatchImages(self, startIdx=0, batchSize=3, cv2=False):
+    def getBatchImages(self, startIdx=0, batchSize=50, cv2=False, getNames: bool = False):
         retArry = []
         
         endIdx = batchSize + startIdx
@@ -170,7 +170,10 @@ class auAirDataset(DataSetAbstractClass):
             endIdx = self.getTotalImages() - 1
 
         for i in range(startIdx, endIdx):
-            retArry.append(self.getImageAtIndex(i, cv2))
+            if (getNames):
+                retArry.append({"name": self.imageNames[i], "image": self.getImageAtIndex(i,cv2)})
+            else:
+                retArry.append(self.getImageAtIndex(i, cv2))
 
         return retArry
 

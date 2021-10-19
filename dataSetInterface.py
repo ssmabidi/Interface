@@ -117,10 +117,10 @@ class DataSetInterface():
         
         return self.dataSetInstance.getDatasetType()
 
-    def getBatchImages(self, startIdx: int = 0, batchSize: int = 3, cv2: bool = False) -> list:
+    def getBatchImages(self, startIdx: int = 0, batchSize: int = 50, cv2: bool = False, getNames: bool = False) -> list:
         '''Returns a batch of images.'''
         
-        return self.dataSetInstance.getBatchImages(startIdx, batchSize, cv2)
+        return self.dataSetInstance.getBatchImages(startIdx, batchSize, cv2, getNames)
 
     def getGroundTruth(self, imageName: str):
         if(self.dataSetInstance.getDatasetType() == "objectDetection"):
