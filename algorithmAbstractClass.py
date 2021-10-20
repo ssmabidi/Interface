@@ -57,11 +57,11 @@ class AlgorithmAbstractClass(ABC):
         pass
 
     @abstractmethod
-    def get_batch_json(self):
+    def get_batch_json(self, getAll:bool = False):
         pass
 
     @abstractmethod
-    def get_batch_zip(self):
+    def get_batch_zip(self, getAll:bool = False):
         pass
 
 

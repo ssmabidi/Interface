@@ -55,6 +55,7 @@ class auAirDataset(DataSetAbstractClass):
 
         self.imageIndex = 0
         self.batchSize = 50
+        self.startIdx = 0
 
         with open(self.dataPath + self.paths['annotations']) as f:
             self.dataFile = json.load(f)

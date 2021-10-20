@@ -60,8 +60,8 @@ class AlgorithmInterface():
         '''This function runs the algorithm on all the images provided in images parameter and returns the results as a dictionary'''
         return self.algorithmInstance.batch_detect(images, dirPath)
 
-    def get_batch_json(self):
-        return self.algorithmInstance.get_batch_json()
+    def get_batch_json(self, getAll:bool = False):
+        return self.algorithmInstance.get_batch_json(getAll)
 
-    def get_batch_zip(self):
-        return self.algorithmInstance.get_batch_zip()
+    def get_batch_zip(self, getAll:bool = False):
+        return self.algorithmInstance.get_batch_zip(getAll)

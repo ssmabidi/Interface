@@ -160,13 +160,13 @@ def applyAlgo(algo, apply_click, batch_click):
         table_body = [html.Tbody(rows)]
         table = dbc.Table(table_header + table_body, bordered = True)
         
-        buttons = html.Div([ #Internal row
+        buttons = html.Div([ #Download Buttons row
             html.Div([
-                dbc.Button("Download Results as JSON", id="download_json", color='dark', className='mr-1 mb-1',),
-                dcc.Download(id="download-results-json"),
-
-                dbc.Button("Download detected images as zip", id="download_zip", color='dark', className='mr-1 mb-1',),
-                dcc.Download(id="download-results-zip"),
+                dbc.Button("Download Current Results as JSON", id="download_json", color='dark', className='mr-1 mb-1',),
+                dbc.Button("Download Current Detected Images as zip", id="download_zip", color='dark', className='mr-1 mb-1',),
+                dbc.Button("Download All Results as JSON", id="download_json_all", color='dark', className='mr-1 mb-1',),
+                dbc.Button("Download All Detected Images as zip", id="download_zip_all", color='dark', className='mr-1 mb-1',),
+                dcc.Download(id="download-results"),
             ], className='col-12'),
         ], className = 'row')
 
@@ -176,34 +176,27 @@ def applyAlgo(algo, apply_click, batch_click):
         raise PreventUpdate
 
 ####################################################################################################
-# 006 - Download JSON File
+# 006 - 009 - Download JSON  and Zip Files
 ####################################################################################################
 @app.callback(
-    Output("download-results-json", "data"),
-    Input("download_json", "n_clicks")
+    Output("download-results", "data"),
+    [Input("download_json", "n_clicks"),
+    Input("download_json_all", "n_clicks"),
+    Input("download_zip", "n_clicks"),
+     Input("download_zip_all","n_clicks")]
 )
-def download_json(n_clicks):
+def download_results(n_clicks, n_clicks1, n_clicks2, n_clicks3):
     ctx = dash.callback_context
     triggerCause = ctx.triggered[0]['prop_id'].split('.')[0]
 
     if(triggerCause == 'download_json'):
         return dcc.send_file(g_var.algoInstance.get_batch_json())
-    else:
-        raise PreventUpdate
-
-####################################################################################################
-# 007 - Download ZIP File Containing batch images with annotations
-####################################################################################################
-@app.callback(
-    Output("download-results-zip", "data"),
-    Input("download_zip", "n_clicks")
-)
-def download_zip(n_clicks):
-    ctx = dash.callback_context
-    triggerCause = ctx.triggered[0]['prop_id'].split('.')[0]
-
+    if(triggerCause == 'download_json_all'):
+        return dcc.send_file(g_var.algoInstance.get_batch_json(getAll=True))
     if(triggerCause == 'download_zip'):
         return dcc.send_file(g_var.algoInstance.get_batch_zip())
+    if(triggerCause == 'download_zip_all'):
+        return dcc.send_file(g_var.algoInstance.get_batch_zip(getAll=True))
     else:
         raise PreventUpdate
 
