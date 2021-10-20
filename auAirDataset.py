@@ -193,3 +193,9 @@ class auAirDataset(DataSetAbstractClass):
         category = list(self.categories)[classIdx]
         color = self.categories[category]
         return {"label": category, "color": color}
+
+    def getBatchSize(self):
+        return self.batchSize
+
+    def setBatchSize(self, size: int):
+        self.batchSize = int(size)

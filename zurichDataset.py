@@ -190,3 +190,9 @@ class zurichDataset(DataSetAbstractClass):
 
         self.startIdx += self.batchSize
         return retArry
+
+    def getBatchSize(self):
+        return self.batchSize
+
+    def setBatchSize(self, size: int):
+        self.batchSize = int(size)

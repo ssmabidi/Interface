@@ -133,3 +133,11 @@ class DataSetInterface():
             return self.dataSetInstance.getCategory(classIdx)
         else:
             raise Exception("This Function is only available for Object Detection DataSets.")
+
+    def getBatchSize(self):
+        '''Returns the size of batch of images.'''
+        return self.dataSetInstance.getBatchSize()
+
+    def setBatchSize(self, size: int):
+        '''Sets the size of batch of images.'''
+        self.dataSetInstance.setBatchSize(size)

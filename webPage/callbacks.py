@@ -244,6 +244,7 @@ def download_results(n_clicks, n_clicks1, n_clicks2, n_clicks3):
     , Output("notification-toast", "is_open")
     , Output("basic-info-toast", "children")
     , Output("basic-info-toast", "is_open")
+    , Output('dataset-batch-size', 'value')
     ],
     [Input('dataset-config-dropdown', 'value')
     , Input('img-first', 'n_clicks')
@@ -281,6 +282,7 @@ def selectDatasetConfig(dataset, btnFirst, btnPrev, btnNext, btnLast, rangeVal):
         orbConfig = g_var.datasetInstance.getOrbParams()
         viewerConfig = g_var.datasetInstance.getViewerParams()
         datasetType = g_var.datasetInstance.getDatasetType()
+        datasetBatchSize = g_var.datasetInstance.getBatchSize()
         if(triggerCause == 'dataset-config-dropdown'):
             fig = go.Figure(px.imshow(g_var.datasetInstance.getCurrImage()))
         else:
@@ -311,7 +313,7 @@ def selectDatasetConfig(dataset, btnFirst, btnPrev, btnNext, btnLast, rangeVal):
      cameraConfig['fps'], cameraConfig['RGB'], orbConfig['nFeatures'], orbConfig['scaleFactor'], orbConfig['nLevels'], orbConfig['iniThFAST'],
      orbConfig['minThFAST'], viewerConfig['KeyFrameSize'], viewerConfig['KeyFrameLineWidth'], viewerConfig['GraphLineWidth'], viewerConfig['PointSize'],
      viewerConfig['CameraSize'], viewerConfig['CameraLineWidth'], viewerConfig['ViewpointX'], viewerConfig['ViewpointY'], viewerConfig['ViewpointZ'],
-     viewerConfig['ViewpointF'], fig, datasetType, total_images, notificationText, notificationAlert, basicInfoText, basicInfoAlert
+     viewerConfig['ViewpointF'], fig, datasetType, total_images, notificationText, notificationAlert, basicInfoText, basicInfoAlert, datasetBatchSize
     ]
 
 ####################################################################################################
@@ -321,13 +323,24 @@ def selectDatasetConfig(dataset, btnFirst, btnPrev, btnNext, btnLast, rangeVal):
     [ Output("basic-config-toast", "children")
     , Output("basic-config-toast", "is_open")
     ],
-    [ Input('dataset-training-percent', 'value')
+    [ Input('dataset-training-percent', 'value'),
+      Input("dataset-batch-size", "value")
     ]
     )
-def setTrainingPercent(dsTrainVal):
-    g_var.datasetInstance.setTrainingPercent(dsTrainVal)
-    notificationText = "Training Data Percentage Updated Successfully"
-    return [notificationText, True]
+def setBasicConfig(dsTrainVal, batchSize):
+    ctx = dash.callback_context
+    triggerCause = ctx.triggered[0]['prop_id'].split('.')[0]
+
+    if(triggerCause == "dataset-training-percent"):
+        g_var.datasetInstance.setTrainingPercent(dsTrainVal)
+        notificationText = "Training Data Percentage Updated Successfully"
+        return [notificationText, True]
+    elif(triggerCause == "dataset-batch-size"):
+        g_var.datasetInstance.setBatchSize(batchSize)
+        notificationText = "Batch Size Updated Successfully"
+        return [notificationText, True]
+    else:
+        raise PreventUpdate
 
 
 ####################################################################################################

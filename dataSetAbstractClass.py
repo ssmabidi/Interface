@@ -117,6 +117,16 @@ class DataSetAbstractClass(ABC):
         '''Returns a batch of images.'''
         pass
 
+    @abstractmethod
+    def getBatchSize(self):
+        '''Returns the size of batch of images.'''
+        pass
+
+    @abstractmethod
+    def setBatchSize(self, size: int):
+        '''Sets the size of batch of images.'''
+        pass
+
     def pilToCV2(self, pil_image: Image) -> Image:
         '''Returns an image in CV2 format. This function is defined here because it is needed by all the classes which implements this abstract class.'''
         pil_image = pil_image.convert('RGB') 

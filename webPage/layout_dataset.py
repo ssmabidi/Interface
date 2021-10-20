@@ -153,6 +153,12 @@ datasetsPage = html.Div([
                                     dcc.Slider(id='dataset-training-percent', tooltip = { 'always_visible': True, 'placement': 'bottom' }, min=5, max=80, step=5, value=30, marks={5: '5%', 10: '10%', 15: '15%', 20: '20%', 25: '25%', 30: '30%', 35: '35%', 40: '40%', 45: '45%', 50: '50%', 55: '55%', 60: '60%', 65: '65%', 70: '70%', 75: '75%', 80: '80%'},
                                 ), width=8, ),
                             ], row=True,),
+                            dbc.FormGroup([
+                                dbc.Label("Batch Size", width=4),
+                                dbc.Col(
+                                    dcc.Input(type="text", id='dataset-batch-size', placeholder="0"
+                                ), width=8, ),
+                            ], row=True,),
                         ],)
                     ]) ], width=6),
                     
