@@ -34,13 +34,18 @@ def pil_to_b64(im, enc_format="png", **kwargs):
 session_Id = uuid.uuid1()
 
 ####################################################################################################
+# 001 - GET CURRENT PROJECT DIRECTORY
+####################################################################################################
+current_dir = os.getcwd()
+
+####################################################################################################
 # 001 - DATASET AND ALGORITHM INSTANCES TO BE USED THROUGHOUT THE TESTBENCH
 ####################################################################################################
 datasetInstance = None
 algoInstance = None
 
-zurichInstance = DataSetInterface({"dataSetClass": "zurichDataset", "dataPath" : '/home/shahamat/Datasets/AGZ'}) #TODO: Read dataset path from user
-auAirInstance = DataSetInterface({"dataSetClass": "auAirDataset", "dataPath" : '/home/shahamat/Datasets/auAir'}) #TODO: Read dataset path from user
+zurichInstance = DataSetInterface({"dataSetClass": "zurichDataset", "dataPath" : current_dir + '/Datasets/AGZ'}) #TODO: Read dataset path from user
+auAirInstance = DataSetInterface({"dataSetClass": "auAirDataset", "dataPath" : current_dir + '/Datasets/auAir'}) #TODO: Read dataset path from user
 
 yoloInstance = AlgorithmInterface({"algorithmClass": "yoloAlgorithm", "session_id": session_Id})
 
@@ -55,7 +60,6 @@ datasetTypes = [{'label': 'Object Detection Dataset', 'value': 'objectDetection'
 ####################################################################################################
 # 003 - SET UPLOAD FILE PATHS FOR ALGORITHM CONFIGURATIONS
 ####################################################################################################
-current_dir = os.getcwd()
 upload_dir = current_dir + "/upload_files"
 
 ####################################################################################################
