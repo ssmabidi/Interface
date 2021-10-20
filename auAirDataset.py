@@ -54,6 +54,7 @@ class auAirDataset(DataSetAbstractClass):
         self.datasetType = 'objectDetection'
 
         self.imageIndex = 0
+        self.batchSize = 50
 
         with open(self.dataPath + self.paths['annotations']) as f:
             self.dataFile = json.load(f)
@@ -162,19 +163,23 @@ class auAirDataset(DataSetAbstractClass):
     def getDatasetType(self):
         return self.datasetType
 
-    def getBatchImages(self, startIdx=0, batchSize=50, cv2=False, getNames: bool = False):
+    def getBatchImages(self, cv2=False, getNames: bool = False):
         retArry = []
+
+        if(self.startIdx > self.getTotalImages()):
+            self.startIdx = 0
         
-        endIdx = batchSize + startIdx
+        endIdx = self.batchSize + self.startIdx
         if( endIdx > self.getTotalImages()):
             endIdx = self.getTotalImages() - 1
 
-        for i in range(startIdx, endIdx):
+        for i in range(self.startIdx, endIdx):
             if (getNames):
                 retArry.append({"name": self.imageNames[i], "image": self.getImageAtIndex(i,cv2)})
             else:
                 retArry.append(self.getImageAtIndex(i, cv2))
 
+        self.startIdx += self.batchSize
         return retArry
 
     def getGroundTruth(self, imageName: str, getOriginalImage: bool = True) -> dict:

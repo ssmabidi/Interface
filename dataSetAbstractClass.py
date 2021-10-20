@@ -113,7 +113,7 @@ class DataSetAbstractClass(ABC):
         pass
 
     @abstractmethod
-    def getBatchImages(self, startIdx: int = 0, batchSize: int = 50, cv2: bool = False, getNames: bool = False) -> list:
+    def getBatchImages(self, cv2: bool = False, getNames: bool = False) -> list:
         '''Returns a batch of images.'''
         pass
 
