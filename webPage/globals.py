@@ -8,7 +8,7 @@ from dataSetInterface import DataSetInterface
 from algorithmInterface import AlgorithmInterface
 
 ####################################################################################################
-# TODO: - End here!!
+# 000 - COMMON FUNCTION
 ####################################################################################################
 
 import base64
@@ -39,7 +39,7 @@ session_Id = uuid.uuid1()
 current_dir = os.getcwd()
 
 ####################################################################################################
-# 001 - DATASET AND ALGORITHM INSTANCES TO BE USED THROUGHOUT THE TESTBENCH
+# 002 - DATASET AND ALGORITHM INSTANCES TO BE USED THROUGHOUT THE TESTBENCH
 ####################################################################################################
 datasetInstance = None
 algoInstance = None
@@ -50,7 +50,7 @@ auAirInstance = DataSetInterface({"dataSetClass": "auAirDataset", "dataPath" : c
 yoloInstance = AlgorithmInterface({"algorithmClass": "yoloAlgorithm", "session_id": session_Id})
 
 ####################################################################################################
-# 002 - SET IMPLEMENTED INTERFACES FOR DROPDOWN OPTIONS
+# 003 - SET IMPLEMENTED INTERFACES FOR DROPDOWN OPTIONS
 ####################################################################################################
 availableDatasets = [{'label': 'Zurich Dataset', 'value': 'zurichInstance'}, {'label': 'AuAir Dataset', 'value': 'auAirInstance'}]
 availableAlgorithms = [{'label': 'YOLO Darknet Algorithm', 'value': 'yoloInstance'}]
@@ -58,11 +58,11 @@ availableAlgorithms = [{'label': 'YOLO Darknet Algorithm', 'value': 'yoloInstanc
 datasetTypes = [{'label': 'Object Detection Dataset', 'value': 'objectDetection'}, {'label': 'Path Planning Dataset', 'value': 'pathPlanning'}]
 
 ####################################################################################################
-# 003 - SET UPLOAD FILE PATHS FOR ALGORITHM CONFIGURATIONS
+# 004 - SET UPLOAD FILE PATHS FOR ALGORITHM CONFIGURATIONS
 ####################################################################################################
 upload_dir = current_dir + "/upload_files"
 
 ####################################################################################################
-# 003 - SET DOWNLOAD FILE PATHS FOR ALGORITHM'S BATCH DETECTION FILES
+# 005 - SET DOWNLOAD FILE PATHS FOR ALGORITHM'S BATCH DETECTION FILES
 # ####################################################################################################
 download_dir = current_dir + "/download_files/" + str(session_Id)
