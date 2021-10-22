@@ -1,4 +1,5 @@
 # Testbench for UAVs
+[![Known Vulnerabilities](https://snyk.io/test/github/ssmabidi/Interface/badge.svg)](https://snyk.io/test/github/ssmabidi/Interface)
 ## About
 The project Testbench for UAVs is an opensource project written as a part of Research and Development (RnD) project for [Autonomous Systems (MSc)](https://www.h-brs.de/en/inf/study/master/autonomous-systems) studies at [Hochschule Bonn-Rhein-Sieg (H-BRS)](https://www.h-brs.de/en). This project presents a testbench for UAVS. It can be used to test different datasets with different algorithms. Currently it supports 2 datasets and 1 algorithm but it can be easily extended by implementing the interfaces it provides.
 
@@ -96,3 +97,6 @@ python3 webPage/index.py
 Then open any web browser and navigate to http://127.0.0.1:8050/
 
 ## Usage
+
+
+## Contributing [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/ssmabidi/Interface)
