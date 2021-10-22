@@ -138,8 +138,28 @@ def applyAlgo(algo, apply_click, batch_click):
             curr_img = g_var.datasetInstance.getCurrImage(cv2=True)
             img_detections = g_var.algoInstance.detect_image_file(curr_img)
             fig = go.Figure(px.imshow(img_detections[1]))
+            colors = g_var.algoInstance.get_colors()
             rows = []
             for detect in img_detections[0]:
+                category = detect[0]
+                fig.add_shape(
+                    type="rect",
+                    x0=detect[2][0] - (int(detect[2][2]) / 2), 
+                    y0=detect[2][1] - (int(detect[2][3]) / 2), 
+                    x1=detect[2][0] + (int(detect[2][2]) / 2), 
+                    y1=detect[2][1] + (int(detect[2][3]) / 2),
+                    line=dict(color='rgb' + str(colors[category]), width=2, ),
+                )
+                fig.add_annotation(
+                    x=detect[2][0] - (int(detect[2][2]) / 2), 
+                    y=detect[2][1] - (int(detect[2][3]) / 2),
+                    text=category + " [" + detect[1] + "]",
+                    showarrow=False,
+                    font=dict( size=16, color="#ffffff" ),
+                    align="center",
+                    opacity=1,
+                    bgcolor="#000000",
+                )
                 rows.append(html.Tr([html.Td(detect[0]), html.Td(detect[1]), html.Td(detect[2][0]), html.Td(detect[2][1]), html.Td(detect[2][2]), html.Td(detect[2][3])]))
             table_body = [html.Tbody(rows)]
         table = dbc.Table(table_header + table_body, bordered = True)

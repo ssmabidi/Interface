@@ -65,3 +65,6 @@ class AlgorithmInterface():
 
     def get_batch_zip(self, getAll:bool = False):
         return self.algorithmInstance.get_batch_zip(getAll)
+
+    def get_colors(self):
+        return self.algorithmInstance.get_colors()

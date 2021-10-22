@@ -133,3 +133,6 @@ class yoloAlgorithm(AlgorithmAbstractClass):
             return self.batch_zip_all
         else:
             return self.batch_zip
+
+    def get_colors(self):
+        return self.colors

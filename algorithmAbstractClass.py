@@ -64,6 +64,10 @@ class AlgorithmAbstractClass(ABC):
     def get_batch_zip(self, getAll:bool = False):
         pass
 
+    @abstractmethod
+    def get_colors(self):
+        pass
+
 
     def c_array(self, ctype, values) -> list:
         arr = (ctype*len(values))()
