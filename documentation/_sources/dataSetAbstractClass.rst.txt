@@ -1,0 +1,7 @@
+dataSetAbstractClass module
+===========================
+
+.. automodule:: dataSetAbstractClass
+    :members:
+    :undoc-members:
+    :show-inheritance:

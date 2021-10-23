@@ -1,0 +1,7 @@
+algorithmInterface module
+=========================
+
+.. automodule:: algorithmInterface
+    :members:
+    :undoc-members:
+    :show-inheritance:

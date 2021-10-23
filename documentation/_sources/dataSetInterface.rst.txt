@@ -1,0 +1,7 @@
+dataSetInterface module
+=======================
+
+.. automodule:: dataSetInterface
+    :members:
+    :undoc-members:
+    :show-inheritance:

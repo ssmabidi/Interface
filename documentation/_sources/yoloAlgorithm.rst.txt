@@ -1,0 +1,7 @@
+yoloAlgorithm module
+====================
+
+.. automodule:: yoloAlgorithm
+    :members:
+    :undoc-members:
+    :show-inheritance:

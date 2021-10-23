@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>algorithmAbstractClass module &mdash; Testbench for UAVs  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="algorithmInterface module" href="algorithmInterface.html" />
+    <link rel="prev" title="Interface" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Testbench for UAVs
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Interface</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">algorithmAbstractClass module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algorithmInterface.html">algorithmInterface module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auAirDataset.html">auAirDataset module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dataSetAbstractClass.html">dataSetAbstractClass module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dataSetInterface.html">dataSetInterface module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yoloAlgorithm.html">yoloAlgorithm module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zurichDataset.html">zurichDataset module</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Testbench for UAVs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">Interface</a> &raquo;</li>
+      <li>algorithmAbstractClass module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/algorithmAbstractClass.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-algorithmAbstractClass">
+<span id="algorithmabstractclass-module"></span><h1>algorithmAbstractClass module<a class="headerlink" href="#module-algorithmAbstractClass" title="Permalink to this headline"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="algorithmAbstractClass.AlgorithmAbstractClass">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">algorithmAbstractClass.</span></span><span class="sig-name descname"><span class="pre">AlgorithmAbstractClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#algorithmAbstractClass.AlgorithmAbstractClass" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>A generic interface for Algorithms. This is an abstract class and it defines the methods which needs to be implemented by the Algorithm 
+classes so that they can successfully communicate with the Testbench. It also provides functions which might be commonly used by the 
+algorithm classes. e.g. c_array.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="algorithmAbstractClass.AlgorithmAbstractClass.batch_detect">
+<em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">batch_detect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">images:</span> <span class="pre">&lt;module</span> <span class="pre">'PIL.Image'</span> <span class="pre">from</span> <span class="pre">'/home/shahamat/.local/lib/python3.6/site-packages/PIL/Image.py'&gt;</span></em>, <em class="sig-param"><span class="pre">dirPath:</span> <span class="pre">str</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#algorithmAbstractClass.AlgorithmAbstractClass.batch_detect" title="Permalink to this definition"></a></dt>
+<dd><p>This function takes a batch of images and runs the algorithm on them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>images</strong> (<em>Image</em>) – List of images.</p></li>
+<li><p><strong>dirPath</strong> (<em>str</em>) – The path of the directory where the detected images and detection results are stored.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of detections found in the image</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list[dict[str, str, float, (int, int, int, int)]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="algorithmAbstractClass.AlgorithmAbstractClass.c_array">
+<span class="sig-name descname"><span class="pre">c_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#algorithmAbstractClass.AlgorithmAbstractClass.c_array" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the array in C format</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="algorithmAbstractClass.AlgorithmAbstractClass.detect_image_file">
+<em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">detect_image_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cv2Image:</span> <span class="pre">&lt;module</span> <span class="pre">'PIL.Image'</span> <span class="pre">from</span> <span class="pre">'/home/shahamat/.local/lib/python3.6/site-packages/PIL/Image.py'&gt;</span></em>, <em class="sig-param"><span class="pre">getImage:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#algorithmAbstractClass.AlgorithmAbstractClass.detect_image_file" title="Permalink to this definition"></a></dt>
+<dd><p>This function takes the image in CV2 format and applies the algorthm to detect the object in the image. A list of dictionaries is returned.
+Each dictionary contains the object it detected, percentage of surety of that object and a list of coordinates where the object is detected on
+the image. If the value of getImage is True(default) it also draws the bonding boxes on the image and returns the image with those bonding boxes
+as well.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cv2Image</strong> (<em>Image</em>) – Image to be detected</p></li>
+<li><p><strong>getImage</strong> (<em>bool</em>) – Bool if False only the predictions are returned. If True the bounding boxes are printed on the image and then the image is also returned.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Predicted objects and the image</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list[[str, float, (int, int, int, int)], Image]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="algorithmAbstractClass.AlgorithmAbstractClass.get_batch_json">
+<em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">get_batch_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">getAll</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#algorithmAbstractClass.AlgorithmAbstractClass.get_batch_json" title="Permalink to this definition"></a></dt>
+<dd><p>This function return a json file path which stores the results of batch_detect run. If getAll is True the results of all the batches run in this session are returned otherwise only the latest run’s results are returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>getAll</strong> (<em>bool</em>) – If true the resuls of all previous runs is returned otherwise just the latest run is returned.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The path to json file which contains the results.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="algorithmAbstractClass.AlgorithmAbstractClass.get_batch_zip">
+<em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">get_batch_zip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">getAll</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#algorithmAbstractClass.AlgorithmAbstractClass.get_batch_zip" title="Permalink to this definition"></a></dt>
+<dd><p>This function return a zip file path which stores the predicted images of batch_detect run. If getAll is True the images of all the batches run in this session are returned otherwise only the images of latest run are returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>getAll</strong> (<em>bool</em>) – If true the resuls of all previous runs is returned otherwise just the latest run is returned.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The path to zip file which contains the results.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="algorithmAbstractClass.AlgorithmAbstractClass.get_colors">
+<em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">get_colors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#algorithmAbstractClass.AlgorithmAbstractClass.get_colors" title="Permalink to this definition"></a></dt>
+<dd><p>This function return a dictionary which contains the classes this algorithm is trained to predicte along with the colors each class is assigned for its bounding box in order to keep it separate from other classes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A dictionary of classes and its corresponding color in rbg form</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict[str, tuple(int, int, int)]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="algorithmAbstractClass.AlgorithmAbstractClass.get_threshold">
+<em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">get_threshold</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#algorithmAbstractClass.AlgorithmAbstractClass.get_threshold" title="Permalink to this definition"></a></dt>
+<dd><p>Return the threshold value. This threshold defines the minimum percentage of surety the algorithm has in order to detect the object in
+an image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Threshold value</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="algorithmAbstractClass.AlgorithmAbstractClass.load_network">
+<em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">load_network</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#algorithmAbstractClass.AlgorithmAbstractClass.load_network" title="Permalink to this definition"></a></dt>
+<dd><p>This function loads the algorithm’s network and store it in class variable for use in other functions. It must be called after Algorithm 
+interface is instantiated in order for later functions to use the network.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="algorithmAbstractClass.AlgorithmAbstractClass.reload_network">
+<em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">reload_network</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#algorithmAbstractClass.AlgorithmAbstractClass.reload_network" title="Permalink to this definition"></a></dt>
+<dd><p>This function reload the network with the new files provided by the user. If the new files are not provided it simply reloads the network
+with default files.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="algorithmAbstractClass.AlgorithmAbstractClass.set_config_file">
+<em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">set_config_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filePath</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#algorithmAbstractClass.AlgorithmAbstractClass.set_config_file" title="Permalink to this definition"></a></dt>
+<dd><p>Setter for configuration file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filePath</strong> (<em>str</em>) – New path from where the config file is to be loaded in next network load.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="algorithmAbstractClass.AlgorithmAbstractClass.set_data_file">
+<em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">set_data_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filePath</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#algorithmAbstractClass.AlgorithmAbstractClass.set_data_file" title="Permalink to this definition"></a></dt>
+<dd><p>Setter for data file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filePath</strong> (<em>str</em>) – New path from where the data file is to be loaded in next network load.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="algorithmAbstractClass.AlgorithmAbstractClass.set_threshold">
+<em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">set_threshold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#algorithmAbstractClass.AlgorithmAbstractClass.set_threshold" title="Permalink to this definition"></a></dt>
+<dd><p>Setter for threshold value. This threshold defines the minimum percentage of surety the algorithm has in order to detect the object in
+an image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>threshold</strong> (<em>int</em>) – Threshold value.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="algorithmAbstractClass.AlgorithmAbstractClass.set_weights_file">
+<em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">set_weights_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filePath</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#algorithmAbstractClass.AlgorithmAbstractClass.set_weights_file" title="Permalink to this definition"></a></dt>
+<dd><p>Setter for weights file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filePath</strong> (<em>str</em>) – New path from where the weights file is to be loaded in next network load.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="Interface" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="algorithmInterface.html" class="btn btn-neutral float-right" title="algorithmInterface module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Shahamat Mehdi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

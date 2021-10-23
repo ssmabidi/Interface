@@ -1,0 +1,7 @@
+zurichDataset module
+====================
+
+.. automodule:: zurichDataset
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,7 @@
+auAirDataset module
+===================
+
+.. automodule:: auAirDataset
+    :members:
+    :undoc-members:
+    :show-inheritance:

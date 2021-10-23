@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>zurichDataset module &mdash; Testbench for UAVs  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="yoloAlgorithm module" href="yoloAlgorithm.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Testbench for UAVs
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Interface</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="algorithmAbstractClass.html">algorithmAbstractClass module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algorithmInterface.html">algorithmInterface module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auAirDataset.html">auAirDataset module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dataSetAbstractClass.html">dataSetAbstractClass module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dataSetInterface.html">dataSetInterface module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yoloAlgorithm.html">yoloAlgorithm module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">zurichDataset module</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Testbench for UAVs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">Interface</a> &raquo;</li>
+      <li>zurichDataset module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/zurichDataset.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-zurichDataset">
+<span id="zurichdataset-module"></span><h1>zurichDataset module<a class="headerlink" href="#module-zurichDataset" title="Permalink to this headline"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="zurichDataset.zurichDataset">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">zurichDataset.</span></span><span class="sig-name descname"><span class="pre">zurichDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zurichDataset.zurichDataset" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="dataSetAbstractClass.html#dataSetAbstractClass.DataSetAbstractClass" title="dataSetAbstractClass.DataSetAbstractClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">dataSetAbstractClass.DataSetAbstractClass</span></code></a></p>
+<p>Zurich Dataset class. This is the final class whose instance is used in the dataset interface class. It provides the implementation of all the 
+functions defined in the datasetAbstractClass.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="zurichDataset.zurichDataset.getBatchImages">
+<span class="sig-name descname"><span class="pre">getBatchImages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cv2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">getNames</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#zurichDataset.zurichDataset.getBatchImages" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a batch of images.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cv2</strong> (<em>bool</em>) – if true the returned image is in CV2 format, otherwise PIL Image is returned</p></li>
+<li><p><strong>getNames</strong> (<em>bool</em>) – if true it also returns the names of the images, otherwise just the images are returned</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list of images</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list[Image]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zurichDataset.zurichDataset.getBatchSize">
+<span class="sig-name descname"><span class="pre">getBatchSize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#zurichDataset.zurichDataset.getBatchSize" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the size of batch of images.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Size of batch</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zurichDataset.zurichDataset.getCameraParams">
+<span class="sig-name descname"><span class="pre">getCameraParams</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#zurichDataset.zurichDataset.getCameraParams" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a dictionary with camera paremeter values.
+These values include [camera type “type”, width of camera image “width”, height of camera image “height”,
+frames per second “fps”, RGB or BGR “RGB”, fx, fy, s, cx, cy, k1, k2, k3, p1, p2].
+Further values can be returned as required or provided by different datasets or algorithms.</p>
+<p>For reading the Intrinsic Matrix lecture from Kyle Simek is used which is available at <a class="reference external" href="http://ksimek.github.io/2013/08/13/intrinsic/">http://ksimek.github.io/2013/08/13/intrinsic/</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Dictionary with camera parameters</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict[str, int, int, int, bool, float, float, float, float, float, float, float, float, float, float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zurichDataset.zurichDataset.getCurrImage">
+<span class="sig-name descname"><span class="pre">getCurrImage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cv2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">&lt;module</span> <span class="pre">'PIL.Image'</span> <span class="pre">from</span> <span class="pre">'/home/shahamat/.local/lib/python3.6/site-packages/PIL/Image.py'&gt;</span></span></span><a class="headerlink" href="#zurichDataset.zurichDataset.getCurrImage" title="Permalink to this definition"></a></dt>
+<dd><p>Returns current image. The image is returned in cv2 format if cv2 is True. Otherwise it is returned in PIL format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cv2</strong> (<em>bool</em>) – if true the returned image is in CV2 format, otherwise PIL Image is returned</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Image in cv2 to pil format</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Image</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zurichDataset.zurichDataset.getCurrImageIndex">
+<span class="sig-name descname"><span class="pre">getCurrImageIndex</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#zurichDataset.zurichDataset.getCurrImageIndex" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the index of current image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The index of current image</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zurichDataset.zurichDataset.getCurrImageName">
+<span class="sig-name descname"><span class="pre">getCurrImageName</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#zurichDataset.zurichDataset.getCurrImageName" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the name of current image file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The name of current image</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zurichDataset.zurichDataset.getDatasetPath">
+<span class="sig-name descname"><span class="pre">getDatasetPath</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#zurichDataset.zurichDataset.getDatasetPath" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the dataset path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Full path to the dataset</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zurichDataset.zurichDataset.getDatasetType">
+<span class="sig-name descname"><span class="pre">getDatasetType</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#zurichDataset.zurichDataset.getDatasetType" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the type of the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Type of dataset</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zurichDataset.zurichDataset.getImageAtIndex">
+<span class="sig-name descname"><span class="pre">getImageAtIndex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cv2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">&lt;module</span> <span class="pre">'PIL.Image'</span> <span class="pre">from</span> <span class="pre">'/home/shahamat/.local/lib/python3.6/site-packages/PIL/Image.py'&gt;</span></span></span><a class="headerlink" href="#zurichDataset.zurichDataset.getImageAtIndex" title="Permalink to this definition"></a></dt>
+<dd><p>Returns Image at index i. If i is greater than total number of images returns None. The image is returned in cv2 format if cv2 is True.
+Otherwise it is returned in PIL format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>i</strong> (<em>int</em>) – the index at which image should be returned.</p></li>
+<li><p><strong>cv2</strong> (<em>bool</em>) – if true the returned image is in CV2 format, otherwise PIL Image is returned</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Image in cv2 to pil format</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Image</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zurichDataset.zurichDataset.getImageNames">
+<span class="sig-name descname"><span class="pre">getImageNames</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fullPath</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#zurichDataset.zurichDataset.getImageNames" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a list of names of the images sorted by names. Return full path if bool fullPath is True. Otherwise just returns names .</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fullPath</strong> (<em>bool</em>) – if true return the complete path of the image otherwise just returns the name of the image.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List with Image names</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zurichDataset.zurichDataset.getNextImage">
+<span class="sig-name descname"><span class="pre">getNextImage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cv2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">&lt;module</span> <span class="pre">'PIL.Image'</span> <span class="pre">from</span> <span class="pre">'/home/shahamat/.local/lib/python3.6/site-packages/PIL/Image.py'&gt;</span></span></span><a class="headerlink" href="#zurichDataset.zurichDataset.getNextImage" title="Permalink to this definition"></a></dt>
+<dd><p>Returns next image in order. If last image was already provided in previous call it will return None. The image is returned in cv2 
+format if cv2 is True. Otherwise it is returned in PIL format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cv2</strong> (<em>bool</em>) – if true the returned image is in CV2 format, otherwise PIL Image is returned</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Image in cv2 to pil format</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Image</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zurichDataset.zurichDataset.getNextImageName">
+<span class="sig-name descname"><span class="pre">getNextImageName</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#zurichDataset.zurichDataset.getNextImageName" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the name of next image in order. If last image name was already provided in previous call it will return None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>TypeError</strong> – ImageNames is not initialized</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The name of next image</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zurichDataset.zurichDataset.getOrbParams">
+<span class="sig-name descname"><span class="pre">getOrbParams</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#zurichDataset.zurichDataset.getOrbParams" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a dictionary with Oriented FAST and rotated BRIEF (ORB) paremeter values.
+These values include [number of features, scale factor between levels in the scale pyramid “scaleFactor”, 
+Number of levels in the scale pyramid “nLevels”, Fast threshold “iniThFAST” and “minThFAST”].
+Further values can be returned as required or provided by different datasets or algorithms.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Dictionary with orb parameters</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict[int, float, int, float, float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zurichDataset.zurichDataset.getPrevImage">
+<span class="sig-name descname"><span class="pre">getPrevImage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cv2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">&lt;module</span> <span class="pre">'PIL.Image'</span> <span class="pre">from</span> <span class="pre">'/home/shahamat/.local/lib/python3.6/site-packages/PIL/Image.py'&gt;</span></span></span><a class="headerlink" href="#zurichDataset.zurichDataset.getPrevImage" title="Permalink to this definition"></a></dt>
+<dd><p>Returns previous image in order. If first image was already provided in previous call it will return first image again. The image is 
+returned in cv2 format if cv2 is True. Otherwise it is returned in PIL format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cv2</strong> (<em>bool</em>) – if true the returned image is in CV2 format, otherwise PIL Image is returned</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Image in cv2 to pil format</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Image</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zurichDataset.zurichDataset.getTotalImages">
+<span class="sig-name descname"><span class="pre">getTotalImages</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#zurichDataset.zurichDataset.getTotalImages" title="Permalink to this definition"></a></dt>
+<dd><p>Returns total number of images in the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Total number of images in the dataset</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zurichDataset.zurichDataset.getTrainingPercent">
+<span class="sig-name descname"><span class="pre">getTrainingPercent</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#zurichDataset.zurichDataset.getTrainingPercent" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the percentage of training data in current dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Percentage of data for training</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zurichDataset.zurichDataset.getViewerParams">
+<span class="sig-name descname"><span class="pre">getViewerParams</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#zurichDataset.zurichDataset.getViewerParams" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a dictionary with Viewer paremeter values.
+These values include [KeyFrameSize,  KeyFrameLineWidth, GraphLineWidth, PointSize, CameraSize,
+CameraLineWidth, ViewpointX, ViewpointY, ViewpointZ, ViewpointF].
+Further values can be returned as required or provided by different datasets or algorithms.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Dictionary with viewer parameters</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict[float, float, float, float, float, float, float, float, float, float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zurichDataset.zurichDataset.setBatchSize">
+<span class="sig-name descname"><span class="pre">setBatchSize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zurichDataset.zurichDataset.setBatchSize" title="Permalink to this definition"></a></dt>
+<dd><p>Sets the size of batch of images.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>size</strong> (<em>int</em>) – Size of batch</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zurichDataset.zurichDataset.setImageIndex">
+<span class="sig-name descname"><span class="pre">setImageIndex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zurichDataset.zurichDataset.setImageIndex" title="Permalink to this definition"></a></dt>
+<dd><p>Sets image index to i. Default value is 0. So, if no parameter is provided it resets the image counter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>TypeError</strong> – Index is invalid</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>i</strong> (<em>int</em>) – The index to set</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zurichDataset.zurichDataset.setTrainingPercent">
+<span class="sig-name descname"><span class="pre">setTrainingPercent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zurichDataset.zurichDataset.setTrainingPercent" title="Permalink to this definition"></a></dt>
+<dd><p>Sets the percentage of training data in current dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>val</strong> (<em>int</em>) – Percentage of data for training</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="yoloAlgorithm.html" class="btn btn-neutral float-left" title="yoloAlgorithm module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Shahamat Mehdi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

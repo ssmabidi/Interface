@@ -1,0 +1,7 @@
+algorithmAbstractClass module
+=============================
+
+.. automodule:: algorithmAbstractClass
+    :members:
+    :undoc-members:
+    :show-inheritance:
