@@ -11,7 +11,6 @@ import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 
 
-import numpy as np
 import globals as g_var
 
 from globals import zurichInstance, auAirInstance, yoloInstance #imports needed separately for globals dict
@@ -272,9 +271,10 @@ def download_results(n_clicks, n_clicks1, n_clicks2, n_clicks3):
     , Input('img-next', 'n_clicks')
     , Input('img-last', 'n_clicks')
     , Input('img-range', 'value')
-    ]
+    ],
+    [State("dataset-config-dropdown","options")]
     )
-def selectDatasetConfig(dataset, btnFirst, btnPrev, btnNext, btnLast, rangeVal):
+def selectDatasetConfig(dataset, btnFirst, btnPrev, btnNext, btnLast, rangeVal, options):
 
     ctx = dash.callback_context
     triggerCause = ctx.triggered[0]['prop_id'].split('.')[0]
@@ -294,7 +294,8 @@ def selectDatasetConfig(dataset, btnFirst, btnPrev, btnNext, btnLast, rangeVal):
 
     fig = None
     if(g_var.datasetInstance != None):
-        header = dataset.capitalize() + ' Configurations'
+        the_label = [x['label'] for x in options if x['value'] == dataset]
+        header = the_label[0] + ' Configurations'
         total_images = g_var.datasetInstance.getTotalImages()
         dataset_path = g_var.datasetInstance.getDatasetPath()
         traingDataPercent = g_var.datasetInstance.getTrainingPercent()
