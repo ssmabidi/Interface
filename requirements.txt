@@ -7,7 +7,7 @@ dash_html_components==1.1.4
 dash_bootstrap_components==0.13.0
 dash_uploader==0.6.0
 opencv_python==4.5.2.54
-numpy==1.19.5
+numpy==1.22.0
 invoke==1.5.0
 torch==1.6.0
 Pillow==8.4.0
